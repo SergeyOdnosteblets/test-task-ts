@@ -1,5 +1,5 @@
-export interface IUser{
-    firstName?:string,
+export interface UserInfo {
+    firstName: string,
     lastName: string,
     age: number,
     gender: string,
@@ -7,6 +7,6 @@ export interface IUser{
 }
 
 
-export interface PropList {
+export interface UserListItemProps {
     id: string;
   }

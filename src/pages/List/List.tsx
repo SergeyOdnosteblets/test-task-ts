@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
+import { ListItem } from '../../components/ListItem/ListItem';
 import axios from 'axios';
-import styles from './List.module.scss';
 
-import { PropList } from '../../types/data';
-
-export const List: React.FC<PropList> = ({ id }) => {
-  const [stateName, setStateName] = useState<string[]>([]);
-  const [stateId, setStateId] = useState<string[]>([]);
+export const List: React.FC = () => {
+  let [list, setList] = useState<string[]>([]);
 
   useEffect(() => {
-    axios.get(`/get/${id}`).then((res) => {
-      setStateName(res.data.data.firstName);
-      setStateId(res.data.data.id);
+    axios.get('/list').then((request) => {
+      if (request.status === 200) {
+        setList(request.data.data);
+      }
     });
   }, []);
 
   return (
-    <div className={styles.main}>
-      <Link to={`/${id}`} className={styles.user} data-testid="user-id">
-        {stateName}
-      </Link>
-    </div>
+    <div data-testid="all-user-id">{list && list.map((item) => <ListItem id={item} key={item} />)}</div>
   );
 };
