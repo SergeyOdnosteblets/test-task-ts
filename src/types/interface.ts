@@ -1,4 +1,4 @@
-export interface PropsUserInfo{
+export interface UserInfo {
     firstName: string,
     lastName: string,
     age: number,
@@ -7,6 +7,6 @@ export interface PropsUserInfo{
 }
 
 
-export interface PropsUserId {
+export interface UserListItemProps {
     id: string;
   }

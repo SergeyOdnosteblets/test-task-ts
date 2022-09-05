@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Item } from '../pages/Item/Item';
+import { ListItem } from '../../components/ListItem/ListItem';
 import axios from 'axios';
 
 export const List: React.FC = () => {
@@ -15,6 +15,6 @@ export const List: React.FC = () => {
   }, []);
 
   return (
-    <div data-testid="all-user-id">{list && list.map((item) => <Item id={item} key={item} />)}</div>
+    <div data-testid="all-user-id">{list && list.map((item) => <ListItem id={item} key={item} />)}</div>
   );
 };

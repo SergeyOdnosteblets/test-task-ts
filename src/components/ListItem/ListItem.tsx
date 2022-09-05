@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
-import styles from './Item.module.scss';
+import styles from './ListItem.module.scss';
 
-import { PropsUserId } from '../../types/interface';
+import { UserListItemProps } from '../../types/interface';
 
-export const Item: React.FC<PropsUserId> = ({ id }) => {
+export const ListItem: React.FC<UserListItemProps> = ({ id }) => {
   const [stateName, setStateName] = useState<string[]>([]);
   const [stateId, setStateId] = useState<string[]>([]);
 

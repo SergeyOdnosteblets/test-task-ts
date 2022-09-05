@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from './User.module.scss';
 
-import { PropsUserInfo } from '../../types/interface';
+import { UserInfo } from '../../types/interface';
 
 export const User: React.FC = () => {
-  const [state, setState] = useState<PropsUserInfo | null>(null);
+  const [state, setState] = useState<UserInfo | null>(null);
 
   const { id } = useParams();
 

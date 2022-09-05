@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { List } from './components/List';
+import { List } from './pages/List/List';
 import { User } from './pages/User/User';
 import { setupDAL } from './setupDAL';
 
