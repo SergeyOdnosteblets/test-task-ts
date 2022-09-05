@@ -4,12 +4,26 @@ import { render, waitFor } from '@testing-library/react';
 import { User } from '../pages/User/User';
 import { BrowserRouter } from 'react-router-dom';
 
+interface getAxiosRequest {
+  data: getData;
+}
+
+interface getData {
+  data: Item;
+}
+
+interface Item {
+  firstName: string;
+  lastName: string;
+  age: number;
+}
+
 const users = [{ id: 1 }];
-const getMock = (url) =>
+const getMock = (url: string) =>
   url.includes('get/id')
     ? Promise.resolve({ data: { data: users } })
-    : Promise.resolve({
-        data: { data: { firstName: 'firstName', age: 'age', lastName: 'lastName' } },
+    : Promise.resolve<getAxiosRequest>({
+        data: { data: { firstName: 'firstName', age: 10, lastName: 'lastName' } },
       });
 jest.mock('axios', () => ({
   ...jest.requireActual('axios'),
@@ -28,7 +42,7 @@ describe('User', () => {
       () => {
         expect(getByText('firstName')).toBeVisible();
         expect(getByText('lastName')).toBeVisible();
-        expect(getByText('age')).toBeVisible();
+        expect(getByText(10)).toBeVisible();
       },
       {
         timeout: 500,
