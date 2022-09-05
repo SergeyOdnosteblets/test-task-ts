@@ -1,0 +1,14 @@
+.main {
+  text-align: center;
+}
+
+.user {
+  text-decoration: none;
+  color: black;
+  font-size: 27px;
+  font-weight: bold;
+
+  &:hover {
+    color: green;
+  }
+}

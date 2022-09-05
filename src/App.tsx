@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AllUserIds } from './components/AllUserIds';
+import { User } from './pages/User/User';
+import { setupDAL } from './setupDAL';
 
-function App() {
+export const App: React.FC = () => {
+  setupDAL();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="app" data-testid="app">
+        <Routes>
+          <Route path="/" element={<AllUserIds />} />
+          <Route path="/:id" element={<User />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
-}
-
-export default App;
+};
