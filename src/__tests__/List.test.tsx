@@ -1,40 +1,28 @@
-import '@testing-library/jest-dom';
+import React from 'react';
 
-import axios from 'axios';
-import {getUsers } from '../utils/axios';
+import { render, waitFor } from '@testing-library/react';
 
-jest.mock('axios');
+import { List } from '../pages/List/List';
+import { BrowserRouter } from 'react-router-dom';
 
-describe('getUsers', () => {
-  it('should return users list', async () => {
-    const users = [{ id: 1 }, { id: 2 }];
-    axios.get.mockResolvedValueOnce(users);
+const users = [{ id: 1 }];
+const getMock = (url: string) =>
+  url.includes('list')
+    ? Promise.resolve({ data: { data: users } })
+    : Promise.resolve({ data: { data: { firstName: 'firstName' } } });
+jest.mock('axios', () => ({
+  ...jest.requireActual('axios'),
+  get: getMock,
+}));
 
-    const result = await getUsers(users);
+it('render List with received data', async () => {
+  const { getByText } = render(
+    <BrowserRouter>
+      <List />
+    </BrowserRouter>,
+  );
 
-    expect(axios.get).toHaveBeenCalledWith('/list');
-    expect(result).toEqual(users);
-  });
-
-  it('should return empty users list', async () => {
-    const users = [];
-    axios.get.mockResolvedValueOnce(users);
-
-    const result = await getUsers();
-
-    expect(axios.get).toHaveBeenCalledWith('/list');
-    expect(result).toEqual(users);
-  });
-});
-
-describe('when API call fails', () => {
-  it('should return empty users list', async () => {
-    const message = 'Network Error';
-    axios.get.mockRejectedValueOnce(new Error(message));
-
-    const result = await getUsers();
-
-    expect(axios.get).toHaveBeenCalledWith('/list');
-    expect(result).toEqual([]);
+  await waitFor(() => expect(getByText('firstName')).toBeVisible(), {
+    timeout: 500,
   });
 });
