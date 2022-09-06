@@ -3,13 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './ListItem.module.scss';
 
-import { UserListItemProps } from '../../types/interface';
+import { UserListItemProps, UserItem } from '../../types/interface';
 
 export const ListItem: React.FC<UserListItemProps> = ({ id }) => {
-  const [userState, setUserState] = useState<any>([]);
+  const [user, setState] = useState<UserItem | null>(null);
 
   const navigate = useNavigate();
-  const handleClick = (userObj: any) => {
+  const handleClick = (userObj: UserItem) => {
     navigate(`/${userObj.id}`, {
       state: {
         firstName: userObj.firstName,
@@ -24,16 +24,18 @@ export const ListItem: React.FC<UserListItemProps> = ({ id }) => {
   useEffect(() => {
     axios.get(`/get/${id}`).then((res) => {
       if (res.status === 200) {
-        setUserState(res.data.data);
+        setState(res.data.data);
       }
     });
   }, []);
 
   return (
     <div className={styles.main}>
-      <div className={styles.user} onClick={() => handleClick(userState)} data-testid="user-id">
-        {userState.firstName}
-      </div>
+      {user && (
+        <div className={styles.user} onClick={() => handleClick(user)} data-testid="user-id">
+          {user.firstName}
+        </div>
+      )}
     </div>
   );
 };

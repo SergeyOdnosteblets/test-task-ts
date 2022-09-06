@@ -6,15 +6,10 @@ import axios from 'axios';
 export const List: React.FC = () => {
   let [list, setList] = useState<string[]>([]);
 
-  // const userLink = (id: string) => {
-  //   setTest()
-  // };
-
   useEffect(() => {
     axios.get('/list').then((request) => {
       if (request.status === 200) {
         setList(request.data.data);
-        
       }
     });
   }, []);

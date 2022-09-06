@@ -1,14 +1,13 @@
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import styles from './User.module.scss';
-
 import { UserInfo } from '../../types/interface';
+
+import styles from './User.module.scss';
 
 export const User: React.FC = () => {
   const { state } = useLocation();
-
-  const { firstName, lastName, age, gender, country }: any = state;
+  const { firstName, lastName, age, gender, country } = state as UserInfo;
 
   return (
     <div className={styles.main} data-testid="user-page">
@@ -19,7 +18,6 @@ export const User: React.FC = () => {
         <div>{gender}</div>
         <div>{country}</div>
       </div>
-
       <div>
         <Link to="/" className={styles.button}>
           Back

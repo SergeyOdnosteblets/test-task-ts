@@ -6,7 +6,15 @@ export interface UserInfo {
     country: string
 }
 
-
 export interface UserListItemProps {
     id: string;
-  }
+}
+
+export interface UserItem {
+    id: string;
+    firstName: string;
+    lastName: string;
+    age: number;
+    gender: number;
+    country: string;
+}
