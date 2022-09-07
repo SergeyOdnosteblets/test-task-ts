@@ -1,29 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './ListItem.module.scss';
 
-import { UserListItemProps } from '../../types/interface';
+import { UserListItemProps } from '../../types/UserListItemProps';
+import { UserInfo } from '../../types/UserInfo';
 
 export const ListItem: React.FC<UserListItemProps> = ({ id }) => {
-  const [stateName, setStateName] = useState<string[]>([]);
-  const [stateId, setStateId] = useState<string[]>([]);
+  const [user, setUser] = useState<UserInfo | null>(null);
+
+  const navigate = useNavigate();
+  const handleClick = (userObj: UserInfo) => {
+    navigate(`/${userObj.id}`, {
+      state: {
+        firstName: userObj.firstName,
+        age: userObj.age,
+        lastName: userObj.lastName,
+        gender: userObj.gender,
+        country: userObj.country,
+      },
+    });
+  };
 
   useEffect(() => {
     axios.get(`/get/${id}`).then((res) => {
       if (res.status === 200) {
-        setStateName(res.data.data.firstName);
-        setStateId(res.data.data.id);
+        setUser(res.data.data);
       }
     });
   }, []);
 
   return (
     <div className={styles.main}>
-      <Link to={`/${id}`} className={styles.user} data-testid="user-id">
-        {stateName}
-      </Link>
+      {user && (
+        <div className={styles.user} onClick={() => handleClick(user)} data-testid="user-id">
+          {user.firstName}
+        </div>
+      )}
     </div>
   );
 };

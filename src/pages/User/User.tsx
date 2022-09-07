@@ -1,32 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
+
+import { UserInfo } from '../../types/UserInfo';
+
 import styles from './User.module.scss';
 
-import { UserInfo } from '../../types/interface';
-
 export const User: React.FC = () => {
-  const [state, setState] = useState<UserInfo | null>(null);
+  const location = useLocation();
+  const state = location.state as UserInfo;
 
-  const { id } = useParams();
+  const [user, setUser] = useState<UserInfo | null>(state);
+
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    axios.get(`/get/${id}`).then((res) => {
-      setState(res.data.data);
-    });
+    !state &&
+      axios.get(`/get/${id}`).then((res) => {
+        setUser(res.data.data);
+      });
   }, []);
 
   return (
     <div className={styles.main} data-testid="user-page">
-      {state && (
+      {user && (
         <div className={styles.user}>
-          <div>{state.firstName}</div>
-          <div>{state.lastName}</div>
-          <div>{state.age}</div>
-          <div>{state.gender}</div>
-          <div>{state.country}</div>
+          <div>{user.firstName}</div>
+          <div>{user.lastName}</div>
+          <div>{user.age}</div>
+          <div>{user.gender}</div>
+          <div>{user.country}</div>
         </div>
       )}
       <div>

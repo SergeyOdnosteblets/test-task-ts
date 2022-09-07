@@ -15,6 +15,8 @@ export const List: React.FC = () => {
   }, []);
 
   return (
-    <div data-testid="all-user-id">{list && list.map((item) => <ListItem id={item} key={item} />)}</div>
+    <div data-testid="all-user-id">
+      {list && list.map((item) => <ListItem id={item} key={item} />)}
+    </div>
   );
 };
