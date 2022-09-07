@@ -17,11 +17,10 @@ export const User: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    state
-      ? setUser(state)
-      : axios.get(`/get/${id}`).then((res) => {
-          setUser(res.data.data);
-        });
+    !state &&
+      axios.get(`/get/${id}`).then((res) => {
+        setUser(res.data.data);
+      });
   }, []);
 
   return (
