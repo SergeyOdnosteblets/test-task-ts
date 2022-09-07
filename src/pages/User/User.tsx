@@ -9,21 +9,19 @@ import { UserInfo } from '../../types/UserInfo';
 import styles from './User.module.scss';
 
 export const User: React.FC = () => {
-  const [user, setUser] = useState<UserInfo | null>(null);
-
-  const { id } = useParams<{ id: string }>();
-
   const location = useLocation();
   const state = location.state as UserInfo;
 
+  const [user, setUser] = useState<UserInfo | null>(state);
+
+  const { id } = useParams<{ id: string }>();
+
   useEffect(() => {
-    if (state) {
-      setUser(state);
-    } else {
-      axios.get(`/get/${id}`).then((res) => {
-        setUser(res.data.data);
-      });
-    }
+    state
+      ? setUser(state)
+      : axios.get(`/get/${id}`).then((res) => {
+          setUser(res.data.data);
+        });
   }, []);
 
   return (
