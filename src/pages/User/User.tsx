@@ -9,37 +9,33 @@ import { UserInfo } from '../../types/UserInfo';
 import styles from './User.module.scss';
 
 export const User: React.FC = () => {
-  const [item, setItem] = useState<UserInfo | null>(null);
+  const [user, setUser] = useState<UserInfo | null>(null);
 
-  const { state }: any = useLocation();
   const { id } = useParams<{ id: string }>();
 
+  const location = useLocation();
+  const state = location.state as UserInfo;
+
   useEffect(() => {
-    axios.get(`/get/${id}`).then((res) => {
-      setItem(res.data.data);
-    });
+    if (state) {
+      setUser(state);
+    } else {
+      axios.get(`/get/${id}`).then((res) => {
+        setUser(res.data.data);
+      });
+    }
   }, []);
 
   return (
     <div className={styles.main} data-testid="user-page">
-      {state ? (
+      {user && (
         <div className={styles.user}>
-          <div>{state.firstName}</div>
-          <div>{state.lastName}</div>
-          <div>{state.age}</div>
-          <div>{state.gender}</div>
-          <div>{state.country}</div>
+          <div>{user.firstName}</div>
+          <div>{user.lastName}</div>
+          <div>{user.age}</div>
+          <div>{user.gender}</div>
+          <div>{user.country}</div>
         </div>
-      ) : (
-        item && (
-          <div className={styles.user}>
-            <div>{item.firstName}</div>
-            <div>{item.lastName}</div>
-            <div>{item.age}</div>
-            <div>{item.gender}</div>
-            <div>{item.country}</div>
-          </div>
-        )
       )}
       <div>
         <Link to="/" className={styles.button}>
