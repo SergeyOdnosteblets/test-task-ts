@@ -3,13 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './ListItem.module.scss';
 
-import { UserListItemProps, UserItem } from '../../types/interface';
+import { UserListItemProps } from '../../types/UserListItemProps';
+import { UserInfo } from '../../types/UserInfo';
 
 export const ListItem: React.FC<UserListItemProps> = ({ id }) => {
-  const [user, setState] = useState<UserItem | null>(null);
+  const [user, setUser] = useState<UserInfo | null>(null);
 
   const navigate = useNavigate();
-  const handleClick = (userObj: UserItem) => {
+  const handleClick = (userObj: UserInfo) => {
     navigate(`/${userObj.id}`, {
       state: {
         firstName: userObj.firstName,
@@ -24,7 +25,7 @@ export const ListItem: React.FC<UserListItemProps> = ({ id }) => {
   useEffect(() => {
     axios.get(`/get/${id}`).then((res) => {
       if (res.status === 200) {
-        setState(res.data.data);
+        setUser(res.data.data);
       }
     });
   }, []);
