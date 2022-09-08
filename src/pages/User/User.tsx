@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
@@ -23,6 +23,7 @@ export const User: React.FC = () => {
       });
   }, []);
 
+
   return (
     <div className={styles.main} data-testid="user-page">
       {user && (
@@ -38,6 +39,7 @@ export const User: React.FC = () => {
         <Link to="/" className={styles.button}>
           Back
         </Link>
+        <button className={styles.button}>Delete</button>
       </div>
     </div>
   );

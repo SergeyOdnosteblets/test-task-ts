@@ -1,5 +1,12 @@
 .main {
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  display: flex;
 }
 
 .user {
@@ -7,6 +14,7 @@
   color: black;
   font-size: 27px;
   font-weight: bold;
+  padding-right: 10px;
 
   &:hover {
     color: green;

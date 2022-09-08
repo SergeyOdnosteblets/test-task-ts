@@ -6,7 +6,7 @@ import styles from './ListItem.module.scss';
 import { UserListItemProps } from '../../types/UserListItemProps';
 import { UserInfo } from '../../types/UserInfo';
 
-export const ListItem: React.FC<UserListItemProps> = ({ id }) => {
+export const ListItem: React.FC<UserListItemProps> = ({ id, getRemoveUser }) => {
   const [user, setUser] = useState<UserInfo | null>(null);
 
   const navigate = useNavigate();
@@ -33,8 +33,13 @@ export const ListItem: React.FC<UserListItemProps> = ({ id }) => {
   return (
     <div className={styles.main}>
       {user && (
-        <div className={styles.user} onClick={() => handleClick(user)} data-testid="user-id">
-          {user.firstName}
+        <div className={styles.item}>
+          <div className={styles.user} onClick={() => handleClick(user)} data-testid="user-id">
+            {user.firstName}
+          </div>
+          <button className="button" onClick={() => getRemoveUser(user)}>
+            Delete
+          </button>
         </div>
       )}
     </div>
