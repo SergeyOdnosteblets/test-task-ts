@@ -7,14 +7,17 @@ import axios from 'axios';
 import { UserInfo } from '../../types/UserInfo';
 
 import styles from './User.module.scss';
+import { ListProps } from '../../types/ListProps';
 
-export const User: React.FC = () => {
+export const User: React.FC<ListProps> = ({ delUser, setDelUser }) => {
   const location = useLocation();
   const state = location.state as UserInfo;
 
   const [user, setUser] = useState<UserInfo | null>(state);
 
   const { id } = useParams<{ id: string }>();
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     !state &&
@@ -23,6 +26,10 @@ export const User: React.FC = () => {
       });
   }, []);
 
+  const getRemoveUser = () => {
+    setDelUser([...delUser, id]);
+    navigate('/');
+  };
 
   return (
     <div className={styles.main} data-testid="user-page">
@@ -39,7 +46,9 @@ export const User: React.FC = () => {
         <Link to="/" className={styles.button}>
           Back
         </Link>
-        <button className={styles.button}>Delete</button>
+        <button className={styles.button} onClick={() => getRemoveUser()}>
+          Delete
+        </button>
       </div>
     </div>
   );

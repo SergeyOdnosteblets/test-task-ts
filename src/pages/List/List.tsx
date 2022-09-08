@@ -5,10 +5,10 @@ import axios from 'axios';
 import { UserInfo } from '../../types/UserInfo';
 
 import styles from './List.module.scss';
+import { ListProps } from '../../types/ListProps';
 
-export const List: React.FC = () => {
-  const [list, setList] = useState<string[]>([]);
-  const [delUser, setDelUser] = useState<any>([]);
+export const List: React.FC<ListProps> = ({ delUser, setDelUser }) => {
+  const [list, setList] = useState<string[] | null>(null);
 
   const getRemoveUser = (userObj: UserInfo) => {
     setDelUser([...delUser, userObj.id]);
