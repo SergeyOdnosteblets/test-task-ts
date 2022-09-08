@@ -13,7 +13,7 @@ export const App: React.FC = () => {
     <BrowserRouter>
       <div className="app" data-testid="app">
         <Routes>
-          <Route path="/" element={<List delUser={delUser} setDelUser={setDelUser} />} />
+          <Route path="/" element={<List />} />
           <Route path="/:id" element={<User delUser={delUser} setDelUser={setDelUser} />} />
         </Routes>
       </div>

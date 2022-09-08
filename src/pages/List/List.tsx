@@ -5,13 +5,16 @@ import axios from 'axios';
 import { UserInfo } from '../../types/UserInfo';
 
 import styles from './List.module.scss';
-import { ListProps } from '../../types/ListProps';
 
-export const List: React.FC<ListProps> = ({ delUser, setDelUser }) => {
-  const [list, setList] = useState<string[] | null>(null);
+export const List: React.FC = () => {
+  const [list, setList] = useState<string[]>([]);
 
   const getRemoveUser = (userObj: UserInfo) => {
-    setDelUser([...delUser, userObj.id]);
+    let delUser = list?.filter((item: string) => {
+      return item !== userObj.id;
+    });
+
+    delUser && setList(delUser);
   };
 
   useEffect(() => {
@@ -20,22 +23,18 @@ export const List: React.FC<ListProps> = ({ delUser, setDelUser }) => {
         setList(request.data.data);
       }
     });
-  }, [delUser]);
+  }, []);
 
   return (
     <div data-testid="all-user-id">
       {list &&
-        list
-          .filter((item: string) => {
-            return !delUser.includes(item);
-          })
-          .map((item) => {
-            return (
-              <div className={styles.user}>
-                <ListItem id={item} key={item} getRemoveUser={getRemoveUser} />
-              </div>
-            );
-          })}
+        list.map((item) => {
+          return (
+            <div className={styles.userId}>
+              <ListItem id={item} key={item} getRemoveUser={getRemoveUser} />
+            </div>
+          );
+        })}
     </div>
   );
 };
