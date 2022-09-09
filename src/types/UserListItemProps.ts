@@ -1,5 +1,5 @@
 export interface UserListItemProps {
-    id: string;
+    list: any
     removeUser: (userObj: {
         id: string;
         firstName: string;
