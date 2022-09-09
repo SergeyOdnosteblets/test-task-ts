@@ -5,7 +5,7 @@ import { User } from './pages/User/User';
 import { setupDAL } from './setupDAL';
 
 export const App: React.FC = () => {
-  const [delUser, setDelUser] = useState<string[]>([]);
+  const [list, setList] = useState([]);
 
   setupDAL();
 
@@ -13,8 +13,8 @@ export const App: React.FC = () => {
     <BrowserRouter>
       <div className="app" data-testid="app">
         <Routes>
-          <Route path="/" element={<List />} />
-          <Route path="/:id" element={<User delUser={delUser} setDelUser={setDelUser} />} />
+          <Route path="/" element={<List list={list} setList={setList} />} />
+          <Route path="/:id" element={<User />} />
         </Routes>
       </div>
     </BrowserRouter>

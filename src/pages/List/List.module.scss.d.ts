@@ -1,1 +1,1 @@
-export const userId: string;
+export const user: string;

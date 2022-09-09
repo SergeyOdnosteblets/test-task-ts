@@ -1,4 +1,4 @@
 export interface UserListItemProps {
-    id: string;
+    list: string[];
     getRemoveUser: any,
 }

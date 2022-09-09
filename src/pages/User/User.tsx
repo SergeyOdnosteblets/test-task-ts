@@ -9,7 +9,7 @@ import { UserInfo } from '../../types/UserInfo';
 import styles from './User.module.scss';
 import { ListProps } from '../../types/ListProps';
 
-export const User: React.FC<ListProps> = ({ delUser, setDelUser }) => {
+export const User: React.FC<ListProps> = () => {
   const location = useLocation();
   const state = location.state as UserInfo;
 
@@ -27,7 +27,7 @@ export const User: React.FC<ListProps> = ({ delUser, setDelUser }) => {
   }, []);
 
   const getRemoveUser = () => {
-    setDelUser([...delUser, id]);
+    //setDelUser([...delUser, id]);
     navigate('/');
   };
 
