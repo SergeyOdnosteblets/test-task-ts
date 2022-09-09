@@ -13,7 +13,6 @@ export const List: React.FC = () => {
     let delUser = list?.filter((item: string) => {
       return item !== userObj.id;
     });
-
     delUser && setList(delUser);
   };
 
