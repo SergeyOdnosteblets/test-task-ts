@@ -1,6 +1,6 @@
 export interface UserListItemProps {
     id: string;
-    getRemoveUser: (userObj: {
+    removeUser: (userObj: {
         id: string;
         firstName: string;
         lastName: string;
