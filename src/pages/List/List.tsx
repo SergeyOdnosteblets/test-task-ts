@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { ListItem } from '../../components/ListItem/ListItem';
 import axios from 'axios';
@@ -9,12 +9,10 @@ export const List: React.FC<any> = ({ list, setList }) => {
     let delUser = list?.filter((item: string) => {
       return item !== userObj.id;
     });
-
     delUser && setList(delUser);
   };
 
   useEffect(() => {
-    console.log('list in List', list);
     axios.get('/list').then((request) => {
       if (request.status === 200) {
         setList(request.data.data);

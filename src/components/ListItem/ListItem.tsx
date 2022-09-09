@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './ListItem.module.scss';
 
@@ -23,31 +23,32 @@ export const ListItem: React.FC<UserListItemProps> = ({ list, getRemoveUser }) =
   };
 
   console.log('user', user);
-
+  console.log('list', list);
+  
   useEffect(() => {
     Promise.allSettled(list.map((item) => axios.get(`/get/${item}`))).then((res) => setUser(res));
-  }, [list]);
+  }, []);
 
-  let test = user
-    .filter((item: string | any) => {
+  let fulfilledUsers = user
+    .filter((item: any) => {
       if (item.status === 'fulfilled') {
         return item;
       }
     })
-    .map((item: string | any) => {
+    .map((item: any) => {
       return item.value.data.data;
     });
 
   return (
     <div className={styles.main}>
       {user &&
-        test.map((item: string | any) => {
+        fulfilledUsers.map((item: any) => {
           return (
             <div className={styles.item}>
               <div className={styles.user} onClick={() => handleClick(user)} data-testid="user-id">
                 {item.firstName}
               </div>
-              <button className="button" onClick={() => getRemoveUser(user)}>
+              <button className="button" onClick={() => getRemoveUser(item)}>
                 Delete
               </button>
             </div>
