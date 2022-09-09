@@ -8,6 +8,7 @@ import styles from './List.module.scss';
 
 export const List: React.FC = () => {
   const [list, setList] = useState<string[]>([]);
+  console.log(list);
 
   const removeUser = (userObj: UserInfo) => {
     let delUser = list?.filter((item: string) => {
@@ -27,13 +28,11 @@ export const List: React.FC = () => {
   return (
     <div data-testid="all-user-id">
       {list &&
-        list.map((item) => {
-          return (
-            <div className={styles.userId}>
-              <ListItem id={item} key={item} removeUser={removeUser} />
-            </div>
-          );
-        })}
+        list.map((item) => (
+          <div className={styles.userId} key={item}>
+            <ListItem id={item} removeUser={removeUser} />
+          </div>
+        ))}
     </div>
   );
 };

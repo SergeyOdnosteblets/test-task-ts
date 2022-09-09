@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
@@ -15,7 +15,6 @@ export const User: React.FC = () => {
   const [user, setUser] = useState<UserInfo | null>(state);
 
   const { id } = useParams<{ id: string }>();
-  let navigate = useNavigate();
 
   useEffect(() => {
     !state &&
@@ -23,10 +22,6 @@ export const User: React.FC = () => {
         setUser(res.data.data);
       });
   }, []);
-
-  const getRemoveUser = () => {
-    navigate('/');
-  };
 
   return (
     <div className={styles.main} data-testid="user-page">
@@ -43,9 +38,6 @@ export const User: React.FC = () => {
         <Link to="/" className={styles.button}>
           Back
         </Link>
-        <button className={styles.button} onClick={() => getRemoveUser()}>
-          Delete
-        </button>
       </div>
     </div>
   );

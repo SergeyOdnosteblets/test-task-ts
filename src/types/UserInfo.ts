@@ -3,6 +3,6 @@ export interface UserInfo {
     firstName: string;
     lastName: string;
     age: number;
-    gender: number;
+    gender: string;
     country: string;
 }

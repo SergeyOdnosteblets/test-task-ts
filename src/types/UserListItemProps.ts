@@ -5,7 +5,7 @@ export interface UserListItemProps {
         firstName: string;
         lastName: string;
         age: number;
-        gender: number;
+        gender: string;
         country: string;
     }) => void
     
