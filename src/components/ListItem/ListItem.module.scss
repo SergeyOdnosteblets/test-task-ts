@@ -1,5 +1,14 @@
 .main {
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
 }
 
 .user {
@@ -7,6 +16,7 @@
   color: black;
   font-size: 27px;
   font-weight: bold;
+  padding-right: 10px;
 
   &:hover {
     color: green;

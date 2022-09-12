@@ -1,8 +1,8 @@
 export interface UserInfo {
-    id?: string;
+    id: string;
     firstName: string;
     lastName: string;
     age: number;
-    gender: number;
+    gender: string;
     country: string;
 }

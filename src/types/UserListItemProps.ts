@@ -1,3 +1,11 @@
 export interface UserListItemProps {
-    id: string;
+    list:any
+    removeUser: (userObj: {
+        id: string;
+        firstName: string;
+        lastName: string;
+        age: number;
+        gender: string;
+        country: string;
+    }) => void 
 }
