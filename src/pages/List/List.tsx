@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useState } from 'react';
 import { ListItem } from '../../components/ListItem/ListItem';
-import axios from 'axios';
-import { UserInfo } from '../../types/UserInfo';
 
 export const List: React.FC = () => {
   const [list, setList] = useState([
@@ -88,19 +85,23 @@ export const List: React.FC = () => {
     },
   ]);
 
-  const removeUser = (userObj: UserInfo) => {
-    let delUser = list?.filter((item) => {
-      return item.id !== userObj.id;
-    });
-    delUser && setList(delUser);
+  const removeUser = (userObj: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    age: number;
+    gender: string;
+    country: string;
+  }) => {
+    let newList = [...list];
+    newList.splice(list.indexOf(userObj), 1);
 
-    // list.splice(list.indexOf(userObj), 1);
-    // setList(list);
+    return setList(newList);
   };
 
   return (
     <div data-testid="all-user-id">
-      <ListItem removeUser={removeUser} list={list} />
+      <ListItem list={list} removeUser={removeUser} />
     </div>
   );
 };

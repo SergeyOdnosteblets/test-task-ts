@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import styles from './ListItem.module.scss';
 
 import { UserListItemProps } from '../../types/UserListItemProps';
 import { UserInfo } from '../../types/UserInfo';
+
+import styles from './ListItem.module.scss';
 
 export const ListItem: React.FC<UserListItemProps> = ({ list, removeUser }) => {
   const navigate = useNavigate();
@@ -20,18 +20,21 @@ export const ListItem: React.FC<UserListItemProps> = ({ list, removeUser }) => {
     });
   };
 
-  return list.map((item: UserInfo) => {
-    return (
-      <div className={styles.main} key={item.id}>
-        <div className={styles.item}>
-          <div className={styles.user} onClick={() => handleClick(item)} data-testid="user-id">
-            {item.firstName}
+  return (
+    list &&
+    list.map((item: UserInfo) => {
+      return (
+        <div className={styles.main} key={item.id}>
+          <div className={styles.item}>
+            <div className={styles.user} onClick={() => handleClick(item)} data-testid="user-id">
+              {item.firstName}
+            </div>
+            <button className="button" onClick={() => removeUser(item)}>
+              Delete
+            </button>
           </div>
-          <button className="button" onClick={() => removeUser(item)}>
-            Delete
-          </button>
         </div>
-      </div>
-    );
-  });
+      );
+    })
+  );
 };
