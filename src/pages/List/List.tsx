@@ -96,7 +96,7 @@ export const List: React.FC = () => {
     let newList = [...list];
     newList.splice(list.indexOf(userObj), 1);
 
-    return setList(newList);
+    setList(newList);
   };
 
   return (

@@ -3,7 +3,7 @@ import { List } from './pages/List/List';
 import { User } from './pages/User/User';
 import { setupDAL } from './setupDAL';
 
-export const App: React.FC= () => {
+export const App: React.FC = () => {
   setupDAL();
 
   return (
