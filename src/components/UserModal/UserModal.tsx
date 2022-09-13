@@ -1,10 +1,15 @@
 import { useForm } from 'react-hook-form';
 import { DataInfo } from '../../types/DataInfo';
-import { ModalTypes } from '../../types/ModalTypes';
+import { UserModalTypes } from '../../types/UserModalTypes';
 
-import styles from './Modal.module.scss';
+import styles from './UserModal.module.scss';
 
-export const Modal: React.FC<ModalTypes> = ({ isModalActive, setIsModalActive, list, setList }) => {
+export const UserModal: React.FC<UserModalTypes> = ({
+  isModalActive,
+  setIsModalActive,
+  list,
+  setList,
+}) => {
   const {
     register,
     formState: { errors },
@@ -16,7 +21,7 @@ export const Modal: React.FC<ModalTypes> = ({ isModalActive, setIsModalActive, l
 
   const onSubmit = (data: DataInfo) => {
     let newUser = { ...data, id: (Math.random() + 1).toString(36).substring(2) };
-    
+
     setList([...list, newUser]);
     setIsModalActive(false);
     reset();

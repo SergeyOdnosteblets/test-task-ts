@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ListItem } from '../../components/ListItem/ListItem';
-import { Modal } from '../../components/Modal/UserModal';
+import { UserModal } from '../../components/UserModal/UserModal';
 
 import styles from './List.module.scss';
 
@@ -113,7 +113,12 @@ export const List: React.FC = () => {
         Add Users
       </button>
       <ListItem list={list} removeUser={removeUser} />
-      <Modal isModalActive={isModalActive} setIsModalActive={setIsModalActive} list={list} setList={setList} />
+      <UserModal
+        isModalActive={isModalActive}
+        setIsModalActive={setIsModalActive}
+        list={list}
+        setList={setList}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-export interface ModalTypes {
+export interface UserModalTypes {
     isModalActive: boolean;
     setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>;
     list: {
