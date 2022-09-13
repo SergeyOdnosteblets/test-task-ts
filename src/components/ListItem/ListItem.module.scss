@@ -8,7 +8,7 @@
 .item {
   display: flex;
   justify-content: space-between;
-  width: 200px;
+  width: 250px;
 }
 
 .user {
@@ -20,5 +20,11 @@
 
   &:hover {
     color: green;
+    cursor: pointer;
   }
+}
+
+.button {
+  padding: 10px;
+  margin-left: 5px;
 }

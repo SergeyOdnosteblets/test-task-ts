@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { UserListItemProps } from '../../types/UserListItemProps';
@@ -6,7 +6,7 @@ import { UserInfo } from '../../types/UserInfo';
 
 import styles from './ListItem.module.scss';
 
-export const ListItem: React.FC<UserListItemProps> = ({ list, removeUser }) => {
+export const ListItem: React.FC<UserListItemProps> = ({ list, removeUser, handleClickEdit }) => {
   const navigate = useNavigate();
   const handleClick = (userObj: UserInfo) => {
     navigate(`/${userObj.id}`, {
@@ -29,9 +29,14 @@ export const ListItem: React.FC<UserListItemProps> = ({ list, removeUser }) => {
             <div className={styles.user} onClick={() => handleClick(item)} data-testid="user-id">
               {item.firstName}
             </div>
-            <button className="button" onClick={() => removeUser(item)}>
-              Delete
-            </button>
+            <div className={styles.item__buttons}>
+              <button className={styles.button} onClick={() => removeUser(item)}>
+                Delete
+              </button>
+              <button className={styles.button} onClick={() => handleClickEdit(item)}>
+                Edit
+              </button>
+            </div>
           </div>
         </div>
       );

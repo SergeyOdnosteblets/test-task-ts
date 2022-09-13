@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ListItem } from '../../components/ListItem/ListItem';
 import { UserModal } from '../../components/UserModal/UserModal';
+import { UserModalEdit } from '../../components/UserModalEdit/UserModalEdit';
+import { UserInfo } from '../../types/UserInfo';
 
 import styles from './List.module.scss';
 
@@ -88,15 +90,10 @@ export const List: React.FC = () => {
     },
   ]);
   const [isModalActive, setIsModalActive] = useState(false);
+  const [editUser, setEditUser] = useState<UserInfo | null>(null);
+  const [isEditModalActive, setIsEditModalActive] = useState(false);
 
-  const removeUser = (userObj: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    age: number;
-    gender: string;
-    country: string;
-  }) => {
+  const removeUser = (userObj: UserInfo) => {
     let newList = [...list];
     newList.splice(list.indexOf(userObj), 1);
 
@@ -107,18 +104,33 @@ export const List: React.FC = () => {
     setIsModalActive(true);
   };
 
+  const handleClickEdit = (userObj: UserInfo) => {
+    setEditUser(userObj);
+    setIsEditModalActive(!isEditModalActive);
+  };
+
   return (
     <div className={styles.main} data-testid="all-user-id">
       <button className={styles.button} onClick={() => handleActiveModal()}>
         Add Users
       </button>
-      <ListItem list={list} removeUser={removeUser} />
+      <ListItem list={list} removeUser={removeUser} handleClickEdit={handleClickEdit} />
       <UserModal
         isModalActive={isModalActive}
         setIsModalActive={setIsModalActive}
         list={list}
         setList={setList}
       />
+      {editUser && (
+        <UserModalEdit
+          editUser={editUser}
+          setEditUser={setEditUser}
+          setIsEditModalActive={setIsEditModalActive}
+          isEditModalActive={isEditModalActive}
+          list={list}
+          setList={setList}
+        />
+      )}
     </div>
   );
 };
