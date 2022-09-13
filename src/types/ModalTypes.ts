@@ -1,6 +1,6 @@
 export interface ModalTypes {
-    activeModal: boolean;
-    setActiveModal: React.Dispatch<React.SetStateAction<boolean>>;
+    isModalActive: boolean;
+    setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>;
     list: {
         id: string;
         firstName: string;

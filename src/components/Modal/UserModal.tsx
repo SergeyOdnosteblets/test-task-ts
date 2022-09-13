@@ -4,7 +4,7 @@ import { ModalTypes } from '../../types/ModalTypes';
 
 import styles from './Modal.module.scss';
 
-export const Modal: React.FC<ModalTypes> = ({ activeModal, setActiveModal, list, setList }) => {
+export const Modal: React.FC<ModalTypes> = ({ isModalActive, setIsModalActive, list, setList }) => {
   const {
     register,
     formState: { errors },
@@ -16,15 +16,16 @@ export const Modal: React.FC<ModalTypes> = ({ activeModal, setActiveModal, list,
 
   const onSubmit = (data: DataInfo) => {
     let newUser = { ...data, id: (Math.random() + 1).toString(36).substring(2) };
+    
     setList([...list, newUser]);
-    setActiveModal(false);
+    setIsModalActive(false);
     reset();
   };
 
   return (
     <div
-      className={activeModal ? `${styles.modal} ${styles.active}` : styles.modal}
-      onClick={() => setActiveModal(false)}>
+      className={isModalActive ? `${styles.modal} ${styles.active}` : styles.modal}
+      onClick={() => setIsModalActive(false)}>
       <div className={styles.form} onClick={(e) => e.stopPropagation()}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input

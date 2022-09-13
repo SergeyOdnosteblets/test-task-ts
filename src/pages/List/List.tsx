@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ListItem } from '../../components/ListItem/ListItem';
-import { Modal } from '../../components/Modal/Modal';
+import { Modal } from '../../components/Modal/UserModal';
 
 import styles from './List.module.scss';
 
@@ -87,7 +87,7 @@ export const List: React.FC = () => {
       country: 'United States',
     },
   ]);
-  const [activeModal, setActiveModal] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
 
   const removeUser = (userObj: {
     id: string;
@@ -104,7 +104,7 @@ export const List: React.FC = () => {
   };
 
   const handleActiveModal = () => {
-    setActiveModal(true);
+    setIsModalActive(true);
   };
 
   return (
@@ -113,7 +113,7 @@ export const List: React.FC = () => {
         Add Users
       </button>
       <ListItem list={list} removeUser={removeUser} />
-      <Modal activeModal={activeModal} setActiveModal={setActiveModal} list={list} setList={setList} />
+      <Modal isModalActive={isModalActive} setIsModalActive={setIsModalActive} list={list} setList={setList} />
     </div>
   );
 };
