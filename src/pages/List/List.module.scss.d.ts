@@ -1,1 +1,2 @@
-export const userId: string;
+export const main: string;
+export const button:string;

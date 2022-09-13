@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { ListItem } from '../../components/ListItem/ListItem';
+import { UserModal } from '../../components/UserModal/UserModal';
+
+import styles from './List.module.scss';
 
 export const List: React.FC = () => {
   const [list, setList] = useState([
@@ -84,6 +87,7 @@ export const List: React.FC = () => {
       country: 'United States',
     },
   ]);
+  const [isModalActive, setIsModalActive] = useState(false);
 
   const removeUser = (userObj: {
     id: string;
@@ -99,9 +103,22 @@ export const List: React.FC = () => {
     setList(newList);
   };
 
+  const handleActiveModal = () => {
+    setIsModalActive(true);
+  };
+
   return (
-    <div data-testid="all-user-id">
+    <div className={styles.main} data-testid="all-user-id">
+      <button className={styles.button} onClick={() => handleActiveModal()}>
+        Add Users
+      </button>
       <ListItem list={list} removeUser={removeUser} />
+      <UserModal
+        isModalActive={isModalActive}
+        setIsModalActive={setIsModalActive}
+        list={list}
+        setList={setList}
+      />
     </div>
   );
 };
