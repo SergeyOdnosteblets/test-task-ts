@@ -6,8 +6,8 @@ import { UserInfo } from '../../types/UserInfo';
 import styles from './UserModal.module.scss';
 
 export const UserModal: React.FC<UserEdit> = ({
-  setIsModalActive,
-  isModalActive,
+  setIsModal,
+  isModal,
   list,
   setList,
   userToEdit,
@@ -33,15 +33,15 @@ export const UserModal: React.FC<UserEdit> = ({
 
       setList([...list, newUser]);
     }
-    setIsModalActive(!isModalActive);
+    setIsModal(!isModal);
     reset();
   };
 
   return (
     <div
-      className={isModalActive ? `${styles.modal} ${styles.active}` : styles.modal}
+      className={isModal ? `${styles.modal} ${styles.active}` : styles.modal}
       onClick={() => {
-        setIsModalActive(!isModalActive);
+        setIsModal(!isModal);
         reset();
       }}>
       <div className={styles.form} onClick={(e) => e.stopPropagation()}>

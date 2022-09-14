@@ -2,9 +2,9 @@ import { UserInfo } from "./UserInfo";
 
 export interface UserEdit {
     userToEdit?: UserInfo | null
-    setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>
-    isModalActive: boolean
+    setIsModal: React.Dispatch<React.SetStateAction<boolean>>
+    isModal: boolean
     list: UserInfo[];
     setList: (list: UserInfo[]) => void 
-    setUserToEdit?: (list: UserInfo | null) => void 
+    setEditUser?: (list: UserInfo | null) => void 
 }
