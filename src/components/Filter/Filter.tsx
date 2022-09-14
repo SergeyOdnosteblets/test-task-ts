@@ -18,7 +18,6 @@ export const Filter: React.FC<FilterTypes> = ({ list, setIsFilter }) => {
 
   const onSubmit = (data: FilterTypesForm) => {
     if (data.firstName) {
-      console.log('firstName');
       let filter = list.filter((item: UserInfo) => {
         return item.firstName.toLocaleLowerCase().includes(data.firstName.toLocaleLowerCase());
       });
@@ -26,7 +25,6 @@ export const Filter: React.FC<FilterTypes> = ({ list, setIsFilter }) => {
     }
 
     if (data.gender) {
-      console.log('gender');
       let filter = list.filter((item: UserInfo) => {
         return item.gender === data.gender;
       });
@@ -34,7 +32,6 @@ export const Filter: React.FC<FilterTypes> = ({ list, setIsFilter }) => {
     }
 
     if (data.ageFrom && data.ageTo) {
-      console.log('age');
       let filter = list.filter((item: UserInfo) => {
         return item.age > data.ageFrom && item.age < data.ageTo;
       });
