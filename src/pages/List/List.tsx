@@ -89,7 +89,7 @@ export const List: React.FC = () => {
     },
   ]);
 
-  const [editUser, setEditUser] = useState<UserInfo | null>(null);
+  const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
   const [isModalActive, setIsModalActive] = useState(false);
 
   const removeUser = (userObj: UserInfo) => {
@@ -100,8 +100,13 @@ export const List: React.FC = () => {
   };
 
   const handleEdit = (userObj?: UserInfo) => {
-    setIsModalActive(!isModalActive);
-    userObj && setEditUser(userObj);
+    if (userObj) {
+      setIsModalActive(!isModalActive);
+      userObj && setUserToEdit(userObj);
+    } else {
+      setIsModalActive(!isModalActive);
+      setUserToEdit(null);
+    }
   };
 
   return (
@@ -116,7 +121,7 @@ export const List: React.FC = () => {
           isModalActive={isModalActive}
           list={list}
           setList={setList}
-          editUser={editUser}
+          userToEdit={userToEdit}
         />
       )}
     </div>

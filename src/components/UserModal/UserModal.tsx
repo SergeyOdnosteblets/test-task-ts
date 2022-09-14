@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { UserEdit } from '../../types/UserEdit';
+import { UserEdit } from '../../types/UserToEdit';
 import { UserInfo } from '../../types/UserInfo';
 
 import styles from './UserModal.module.scss';
@@ -10,7 +10,7 @@ export const UserModal: React.FC<UserEdit> = ({
   isModalActive,
   list,
   setList,
-  editUser,
+  userToEdit,
 }) => {
   const {
     register,
@@ -19,7 +19,7 @@ export const UserModal: React.FC<UserEdit> = ({
     reset,
   } = useForm<UserInfo>({
     mode: 'onBlur',
-    defaultValues: editUser ? editUser : {},
+    defaultValues: userToEdit ? userToEdit : {},
   });
 
   const onSubmit = (data: UserInfo) => {
@@ -29,12 +29,14 @@ export const UserModal: React.FC<UserEdit> = ({
 
       setList(list);
       setIsModalActive(!isModalActive);
-    }
-    let newUser = { ...data, id: (Math.random() + 1).toString(36).substring(2) };
+      reset();
+    } else {
+      let newUser = { ...data, id: (Math.random() + 1).toString(36).substring(2) };
 
-    setList([...list, newUser]);
-    reset();
-    setIsModalActive(!isModalActive);
+      setList([...list, newUser]);
+      reset();
+      setIsModalActive(!isModalActive);
+    }
   };
 
   return (
@@ -42,6 +44,7 @@ export const UserModal: React.FC<UserEdit> = ({
       className={isModalActive ? `${styles.modal} ${styles.active}` : styles.modal}
       onClick={() => {
         setIsModalActive(!isModalActive);
+        reset();
       }}>
       <div className={styles.form} onClick={(e) => e.stopPropagation()}>
         <form onSubmit={handleSubmit(onSubmit)}>
