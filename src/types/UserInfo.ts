@@ -5,4 +5,4 @@ export interface UserInfo {
     age: number;
     gender: string;
     country: string;
-}
+} 

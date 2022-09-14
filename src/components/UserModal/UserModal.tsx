@@ -1,36 +1,49 @@
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { DataInfo } from '../../types/DataInfo';
-import { UserModalTypes } from '../../types/UserModalTypes';
+import { UserEdit } from '../../types/UserToEdit';
+import { UserInfo } from '../../types/UserInfo';
 
 import styles from './UserModal.module.scss';
 
-export const UserModal: React.FC<UserModalTypes> = ({
-  isModalActive,
+export const UserModal: React.FC<UserEdit> = ({
   setIsModalActive,
+  isModalActive,
   list,
   setList,
+  userToEdit,
 }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<DataInfo>({
+  } = useForm<UserInfo>({
     mode: 'onBlur',
+    defaultValues: userToEdit ? userToEdit : {},
   });
 
-  const onSubmit = (data: DataInfo) => {
-    let newUser = { ...data, id: (Math.random() + 1).toString(36).substring(2) };
+  const onSubmit = (data: UserInfo) => {
+    if (data.id) {
+      let index = list.findIndex((item) => item.id === data.id);
+      list[index] = data;
 
-    setList([...list, newUser]);
-    setIsModalActive(false);
+      setList(list);
+    } else {
+      let newUser = { ...data, id: (Math.random() + 1).toString(36).substring(2) };
+
+      setList([...list, newUser]);
+    }
+    setIsModalActive(!isModalActive);
     reset();
   };
 
   return (
     <div
       className={isModalActive ? `${styles.modal} ${styles.active}` : styles.modal}
-      onClick={() => setIsModalActive(false)}>
+      onClick={() => {
+        setIsModalActive(!isModalActive);
+        reset();
+      }}>
       <div className={styles.form} onClick={(e) => e.stopPropagation()}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -77,15 +90,15 @@ export const UserModal: React.FC<UserModalTypes> = ({
             {...register('gender', {
               required: true,
             })}>
-            <option value="">Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="non-binary">Non-binary</option>
+            <option value="">gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Non-binary">Non-binary</option>
           </select>
           <div>{errors?.gender && <p className={styles.form__error}>Choose gender</p>}</div>
 
           <button type="submit" className={styles.form__button}>
-            Add User
+            Save
           </button>
         </form>
       </div>
