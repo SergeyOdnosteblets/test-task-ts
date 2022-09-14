@@ -28,15 +28,13 @@ export const UserModal: React.FC<UserEdit> = ({
       list[index] = data;
 
       setList(list);
-      setIsModalActive(!isModalActive);
-      reset();
     } else {
       let newUser = { ...data, id: (Math.random() + 1).toString(36).substring(2) };
 
       setList([...list, newUser]);
-      reset();
-      setIsModalActive(!isModalActive);
     }
+    setIsModalActive(!isModalActive);
+    reset();
   };
 
   return (

@@ -101,12 +101,11 @@ export const List: React.FC = () => {
 
   const handleEdit = (userObj?: UserInfo) => {
     if (userObj) {
-      setIsModalActive(!isModalActive);
       userObj && setUserToEdit(userObj);
     } else {
-      setIsModalActive(!isModalActive);
       setUserToEdit(null);
     }
+    setIsModalActive(!isModalActive);
   };
 
   return (
