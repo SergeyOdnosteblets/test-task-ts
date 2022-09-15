@@ -3,5 +3,6 @@ export interface FilterFormTypes {
     ageFrom?: number;
     ageTo?: number;
     gender?: string;
+    test?: string[]
 
 } 

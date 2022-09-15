@@ -4,6 +4,6 @@ export interface UserListItemProps {
     list: any
     removeUser: (userObj: UserInfo) => void 
     handleEdit: (userObj: UserInfo) => void
-    filterUsers: UserInfo[]
+    firlteredUsers: UserInfo[]
 }
 

@@ -7,7 +7,7 @@ import { FilterFormTypes } from '../../types/FilterFormTypes';
 import { FilterTypes } from '../../types/FilterTypes';
 import { UserInfo } from '../../types/UserInfo';
 
-export const Filter: React.FC<FilterTypes> = ({ list, setFilterUsers }) => {
+export const Filter: React.FC<FilterTypes> = ({ list, setFilteredUsers }) => {
   const { register, handleSubmit, reset } = useForm<FilterFormTypes>({
     mode: 'onBlur',
     defaultValues: {},
@@ -27,13 +27,13 @@ export const Filter: React.FC<FilterTypes> = ({ list, setFilterUsers }) => {
     });
 
     const sortResult = sortAgeTo.filter((item: UserInfo) => {
-      return data.gender ? item.gender.toLowerCase() === data.gender.toLowerCase() : item;
+      return data.gender ? data.gender.includes(item.gender) : item;
     });
-    setFilterUsers(sortResult);
+    setFilteredUsers(sortResult);
   };
 
   const handleReset = () => {
-    setFilterUsers([]);
+    setFilteredUsers([]);
     reset();
   };
 
@@ -46,7 +46,6 @@ export const Filter: React.FC<FilterTypes> = ({ list, setFilterUsers }) => {
             {...register('firstName')}
             placeholder="First name"
           />
-
           <input
             className={styles.form__input}
             type="number"
@@ -56,7 +55,6 @@ export const Filter: React.FC<FilterTypes> = ({ list, setFilterUsers }) => {
             })}
             placeholder="Age From"
           />
-
           <input
             className={styles.form__input}
             type="number"
@@ -67,12 +65,18 @@ export const Filter: React.FC<FilterTypes> = ({ list, setFilterUsers }) => {
             placeholder="Age To"
           />
 
-          <select className={styles.form__input} {...register('gender')}>
-            <option value=""></option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Non-binary">Non-binary</option>
-          </select>
+          <label>
+            <input type="checkbox" {...register('gender')} value="Male" />
+            Male
+          </label>
+          <label>
+            <input type="checkbox" value="Female" {...register('gender')} />
+            Female
+          </label>
+          <label>
+            <input type="checkbox" value="Non-binary" {...register('gender')} />
+            Non-binary
+          </label>
 
           <button type="submit" className={styles.form__button}>
             Save

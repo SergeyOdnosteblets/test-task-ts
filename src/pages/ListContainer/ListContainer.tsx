@@ -10,7 +10,7 @@ import { Filter } from '../../components/Filter/Filter';
 export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
   const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
   const [isModalActive, setIsModalActive] = useState(false);
-  const [filterUsers, setFilterUsers] = useState<UserInfo[]>([]);
+  const [firlteredUsers, setFilteredUsers] = useState<UserInfo[]>([]);
 
   const removeUser = (userObj: UserInfo) => {
     let newList = [...list];
@@ -28,12 +28,10 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
     setIsModalActive(!isModalActive);
   };
 
-  console.log(filterUsers);
-
   return (
     <div className={styles.main} data-testid="all-user-id">
       <div className={styles.filter}></div>
-      <Filter setFilterUsers={setFilterUsers} list={list} />
+      <Filter setFilteredUsers={setFilteredUsers} list={list} />
       <div className={styles.list}>
         <button className={styles.button} onClick={() => handleEdit()}>
           Add User
@@ -42,7 +40,7 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
           list={list}
           removeUser={removeUser}
           handleEdit={handleEdit}
-          filterUsers={filterUsers}
+          firlteredUsers={firlteredUsers}
         />
         {isModalActive && (
           <UserModal

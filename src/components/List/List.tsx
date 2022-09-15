@@ -10,7 +10,7 @@ export const List: React.FC<UserListItemProps> = ({
   list,
   removeUser,
   handleEdit,
-  filterUsers,
+  firlteredUsers,
 }) => {
   const navigate = useNavigate();
   const handleClick = (userObj: UserInfo) => {
@@ -24,9 +24,9 @@ export const List: React.FC<UserListItemProps> = ({
       },
     });
   };
-  
-  return filterUsers.length
-    ? filterUsers.map((item: UserInfo) => {
+
+  return firlteredUsers
+    ? firlteredUsers.map((item: UserInfo) => {
         return (
           <div className={styles.main} key={item.id}>
             <div className={styles.item}>
