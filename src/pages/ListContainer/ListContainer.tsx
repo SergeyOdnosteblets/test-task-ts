@@ -38,7 +38,6 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
         )
         ?.filter((item: UserInfo) => !data.ageFrom || item.age >= data.ageFrom)
         ?.filter((item: UserInfo) => !data.ageTo || item.age <= data.ageTo)
-
         ?.filter((item: UserInfo) => !data.gender || data.gender.includes(item.gender)) ?? [];
     setFilteredUsers(filtered);
   };
