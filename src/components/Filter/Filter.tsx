@@ -1,55 +1,44 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FilterTypes } from '../../types/FilterTypes';
-import { FilterTypesForm } from '../../types/FilterTypesForm';
-import { UserInfo } from '../../types/UserInfo';
 
 import styles from './Filter.module.scss';
 
-export const Filter: React.FC<FilterTypes> = ({ list, setIsFilter }) => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm<FilterTypesForm>({
-    mode: 'onSubmit',
+import { FilterFormTypes } from '../../types/FilterFormTypes';
+import { FilterTypes } from '../../types/FilterTypes';
+import { UserInfo } from '../../types/UserInfo';
+
+export const Filter: React.FC<FilterTypes> = ({ list, setFilterUsers }) => {
+  const { register, handleSubmit, reset } = useForm<FilterFormTypes>({
+    mode: 'onBlur',
+    defaultValues: {},
   });
 
-  const onSubmit = (data: FilterTypesForm) => {
-    if (data.firstName) {
-      let filter = list.filter((item: UserInfo) => {
-        return item.firstName.toLocaleLowerCase().includes(data.firstName.toLocaleLowerCase());
-      });
-      setIsFilter(filter);
-    }
+  const onSubmit = (data: FilterFormTypes) => {
+    const sortNames = list.filter((item: UserInfo) => {
+      return data.firstName ? item.firstName.toLowerCase().includes(data.firstName) : item;
+    });
 
-    if (data.gender) {
-      let filter = list.filter((item: UserInfo) => {
-        return item.gender === data.gender;
-      });
-      setIsFilter(filter);
-    }
+    const sortAgeFrom = sortNames.filter((item: UserInfo) => {
+      return data.ageFrom ? item.age >= data.ageFrom : item;
+    });
 
-    if (data.ageFrom && data.ageTo) {
-      let filter = list.filter((item: UserInfo) => {
-        return item.age > data.ageFrom && item.age < data.ageTo;
-      });
-      setIsFilter(filter);
-    }
-    reset();
+    const sortAgeTo = sortAgeFrom.filter((item: UserInfo) => {
+      return data.ageTo ? item.age <= data.ageTo : item;
+    });
+
+    const sortResult = sortAgeTo.filter((item: UserInfo) => {
+      return data.gender ? item.gender.toLowerCase() === data.gender.toLowerCase() : item;
+    });
+    setFilterUsers(sortResult);
   };
 
   const handleReset = () => {
-    setIsFilter([]);
+    setFilterUsers([]);
     reset();
   };
 
   return (
-    <div
-      onClick={() => {
-        reset();
-      }}>
+    <div>
       <div className={styles.form} onClick={(e) => e.stopPropagation()}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -57,32 +46,26 @@ export const Filter: React.FC<FilterTypes> = ({ list, setIsFilter }) => {
             {...register('firstName')}
             placeholder="First name"
           />
-          <button type="submit" className={styles.form__button}>
-            Filter
-          </button>
 
-          <div className={styles.form__age}>
-            <input
-              type="number"
-              {...register('ageFrom', {
-                min: 0,
-                max: 100,
-              })}
-              placeholder="Age from"
-            />
+          <input
+            className={styles.form__input}
+            type="number"
+            {...register('ageFrom', {
+              min: 0,
+              max: 100,
+            })}
+            placeholder="Age From"
+          />
 
-            <input
-              type="number"
-              {...register('ageTo', {
-                min: 0,
-                max: 100,
-              })}
-              placeholder="Age to"
-            />
-          </div>
-          <button type="submit" className={styles.form__button}>
-            Filter
-          </button>
+          <input
+            className={styles.form__input}
+            type="number"
+            {...register('ageTo', {
+              min: 0,
+              max: 100,
+            })}
+            placeholder="Age To"
+          />
 
           <select className={styles.form__input} {...register('gender')}>
             <option value="">gender</option>
@@ -92,13 +75,11 @@ export const Filter: React.FC<FilterTypes> = ({ list, setIsFilter }) => {
           </select>
 
           <button type="submit" className={styles.form__button}>
-            Filter
+            Save
           </button>
-          <div>
-            <button type="submit" className={styles.form__button} onClick={handleReset}>
-              Reset
-            </button>
-          </div>
+          <button type="submit" className={styles.form__button} onClick={handleReset}>
+            Reset
+          </button>
         </form>
       </div>
     </div>

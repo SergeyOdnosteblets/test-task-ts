@@ -1,13 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { UserEdit } from '../../types/UserToEdit';
+import { UserToEdit } from '../../types/UserToEdit';
 import { UserInfo } from '../../types/UserInfo';
 
 import styles from './UserModal.module.scss';
 
-export const UserModal: React.FC<UserEdit> = ({
-  setIsModal,
-  isModal,
+export const UserModal: React.FC<UserToEdit> = ({
+  setIsModalActive,
+  isModalActive,
   list,
   setList,
   userToEdit,
@@ -33,15 +33,15 @@ export const UserModal: React.FC<UserEdit> = ({
 
       setList([...list, newUser]);
     }
-    setIsModal(!isModal);
+    setIsModalActive(!isModalActive);
     reset();
   };
 
   return (
     <div
-      className={isModal ? `${styles.modal} ${styles.active}` : styles.modal}
+      className={isModalActive ? `${styles.modal} ${styles.active}` : styles.modal}
       onClick={() => {
-        setIsModal(!isModal);
+        setIsModalActive(!isModalActive);
         reset();
       }}>
       <div className={styles.form} onClick={(e) => e.stopPropagation()}>

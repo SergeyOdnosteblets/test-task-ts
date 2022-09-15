@@ -10,7 +10,7 @@ export const ListItem: React.FC<UserListItemProps> = ({
   list,
   removeUser,
   handleEdit,
-  isFilter,
+  filterUsers,
 }) => {
   const navigate = useNavigate();
   const handleClick = (userObj: UserInfo) => {
@@ -24,14 +24,22 @@ export const ListItem: React.FC<UserListItemProps> = ({
       },
     });
   };
-
-  return isFilter.length
-    ? isFilter.map((item: UserInfo) => {
+  
+  return filterUsers.length
+    ? filterUsers.map((item: UserInfo) => {
         return (
           <div className={styles.main} key={item.id}>
             <div className={styles.item}>
-              <div className={styles.user} data-testid="user-id">
+              <div className={styles.user} onClick={() => handleClick(item)} data-testid="user-id">
                 {item.firstName}
+              </div>
+              <div className={styles.item__buttons}>
+                <button className={styles.button} onClick={() => removeUser(item)}>
+                  Delete
+                </button>
+                <button className={styles.button} onClick={() => handleEdit(item)}>
+                  Edit
+                </button>
               </div>
             </div>
           </div>
