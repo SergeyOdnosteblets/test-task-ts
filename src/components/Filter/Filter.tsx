@@ -5,32 +5,12 @@ import styles from './Filter.module.scss';
 
 import { FilterFormTypes } from '../../types/FilterFormTypes';
 import { FilterTypes } from '../../types/FilterTypes';
-import { UserInfo } from '../../types/UserInfo';
 
-export const Filter: React.FC<FilterTypes> = ({ list, setFilteredUsers }) => {
+export const Filter: React.FC<FilterTypes> = ({setFilteredUsers, onSubmit }) => {
   const { register, handleSubmit, reset } = useForm<FilterFormTypes>({
     mode: 'onBlur',
     defaultValues: {},
   });
-
-  const onSubmit = (data: FilterFormTypes) => {
-    const sortNames = list.filter((item: UserInfo) => {
-      return data.firstName ? item.firstName.toLowerCase().includes(data.firstName) : item;
-    });
-
-    const sortAgeFrom = sortNames.filter((item: UserInfo) => {
-      return data.ageFrom ? item.age >= data.ageFrom : item;
-    });
-
-    const sortAgeTo = sortAgeFrom.filter((item: UserInfo) => {
-      return data.ageTo ? item.age <= data.ageTo : item;
-    });
-
-    const sortResult = sortAgeTo.filter((item: UserInfo) => {
-      return data.gender ? data.gender.includes(item.gender) : item;
-    });
-    setFilteredUsers(sortResult);
-  };
 
   const handleReset = () => {
     setFilteredUsers([]);

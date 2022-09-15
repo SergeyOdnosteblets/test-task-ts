@@ -7,7 +7,6 @@ import { UserInfo } from '../../types/UserInfo';
 import styles from './List.module.scss';
 
 export const List: React.FC<UserListItemProps> = ({
-  list,
   removeUser,
   handleEdit,
   firlteredUsers,
@@ -25,43 +24,26 @@ export const List: React.FC<UserListItemProps> = ({
     });
   };
 
-  return firlteredUsers
-    ? firlteredUsers.map((item: UserInfo) => {
-        return (
-          <div className={styles.main} key={item.id}>
-            <div className={styles.item}>
-              <div className={styles.user} onClick={() => handleClick(item)} data-testid="user-id">
-                {item.firstName}
-              </div>
-              <div className={styles.item__buttons}>
-                <button className={styles.button} onClick={() => removeUser(item)}>
-                  Delete
-                </button>
-                <button className={styles.button} onClick={() => handleEdit(item)}>
-                  Edit
-                </button>
-              </div>
+  return (
+    firlteredUsers &&
+    firlteredUsers.map((item: UserInfo) => {
+      return (
+        <div className={styles.main} key={item.id}>
+          <div className={styles.item}>
+            <div className={styles.user} onClick={() => handleClick(item)} data-testid="user-id">
+              {item.firstName}
+            </div>
+            <div className={styles.item__buttons}>
+              <button className={styles.button} onClick={() => removeUser(item)}>
+                Delete
+              </button>
+              <button className={styles.button} onClick={() => handleEdit(item)}>
+                Edit
+              </button>
             </div>
           </div>
-        );
-      })
-    : list.map((item: UserInfo) => {
-        return (
-          <div className={styles.main} key={item.id}>
-            <div className={styles.item}>
-              <div className={styles.user} onClick={() => handleClick(item)} data-testid="user-id">
-                {item.firstName}
-              </div>
-              <div className={styles.item__buttons}>
-                <button className={styles.button} onClick={() => removeUser(item)}>
-                  Delete
-                </button>
-                <button className={styles.button} onClick={() => handleEdit(item)}>
-                  Edit
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      });
+        </div>
+      );
+    })
+  );
 };
