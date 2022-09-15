@@ -68,7 +68,7 @@ export const Filter: React.FC<FilterTypes> = ({ list, setFilterUsers }) => {
           />
 
           <select className={styles.form__input} {...register('gender')}>
-            <option value="">gender</option>
+            <option value=""></option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Non-binary">Non-binary</option>

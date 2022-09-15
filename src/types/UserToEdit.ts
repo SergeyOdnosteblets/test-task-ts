@@ -6,5 +6,5 @@ export interface UserToEdit {
     isModalActive: boolean
     list: UserInfo[];
     setList: (list: UserInfo[]) => void 
-    setEditUser?: (list: UserInfo | null) => void 
+    setToEditUser?: (list: UserInfo | null) => void 
 }
