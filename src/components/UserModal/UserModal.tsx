@@ -1,11 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { UserEdit } from '../../types/UserToEdit';
+import { UserToEdit } from '../../types/UserToEdit';
 import { UserInfo } from '../../types/UserInfo';
 
 import styles from './UserModal.module.scss';
 
-export const UserModal: React.FC<UserEdit> = ({
+export const UserModal: React.FC<UserToEdit> = ({
   setIsModalActive,
   isModalActive,
   list,

@@ -1,6 +1,6 @@
 import { UserInfo } from "./UserInfo";
 
-export interface UserEdit {
+export interface UserToEdit {
     userToEdit?: UserInfo | null
     setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>
     isModalActive: boolean

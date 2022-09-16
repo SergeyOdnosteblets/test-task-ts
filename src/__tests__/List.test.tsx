@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, waitFor } from '@testing-library/react';
 
-import { List } from '../pages/List/List';
+import { List } from '../pages/ListContainer/ListContainer';
 import { BrowserRouter } from 'react-router-dom';
 
 const users = [{ id: 1 }];

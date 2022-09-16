@@ -4,9 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { UserListItemProps } from '../../types/UserListItemProps';
 import { UserInfo } from '../../types/UserInfo';
 
-import styles from './ListItem.module.scss';
+import styles from './List.module.scss';
 
-export const ListItem: React.FC<UserListItemProps> = ({ list, removeUser, handleEdit }) => {
+export const List: React.FC<UserListItemProps> = ({
+  removeUser,
+  handleEdit,
+  firlteredUsers,
+}) => {
   const navigate = useNavigate();
   const handleClick = (userObj: UserInfo) => {
     navigate(`/${userObj.id}`, {
@@ -21,8 +25,8 @@ export const ListItem: React.FC<UserListItemProps> = ({ list, removeUser, handle
   };
 
   return (
-    list &&
-    list.map((item: UserInfo) => {
+    firlteredUsers &&
+    firlteredUsers.map((item: UserInfo) => {
       return (
         <div className={styles.main} key={item.id}>
           <div className={styles.item}>
