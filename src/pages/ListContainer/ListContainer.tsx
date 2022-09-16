@@ -21,11 +21,7 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
   };
 
   const handleEdit = (userObj?: UserInfo) => {
-    if (userObj) {
-      userObj && setUserToEdit(userObj);
-    } else {
-      setUserToEdit(null);
-    }
+    userObj ? setUserToEdit(userObj) : setUserToEdit(null);
     setIsModalActive(!isModalActive);
   };
 
