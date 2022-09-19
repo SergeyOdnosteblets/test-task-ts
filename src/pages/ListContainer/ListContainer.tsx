@@ -3,6 +3,7 @@ import { List } from '../../components/List/List';
 import { UserModal } from '../../components/UserModal/UserModal';
 import { ListTypes } from '../../types/ListTypes';
 import { UserInfo } from '../../types/UserInfo';
+import { useCSVReader } from 'react-papaparse';
 
 import styles from './ListContainer.module.scss';
 import { Filter } from '../../components/Filter/Filter';
@@ -12,6 +13,8 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
   const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
   const [isModalActive, setIsModalActive] = useState(false);
   const [firlteredUsers, setFilteredUsers] = useState<UserInfo[]>(list);
+
+  const { CSVReader } = useCSVReader();
 
   const removeUser = (userObj: UserInfo) => {
     let newList = [...list];
@@ -56,6 +59,36 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
             userToEdit={userToEdit}
           />
         )}
+      </div>
+      <div>
+        <CSVReader
+          onUploadAccepted={(results: any) => {
+            if (results.errors.length) {
+              alert('faildToAddCount');
+            } else {
+              const users = results.data.map((item: UserInfo[]) => {
+                return {
+                  id: item[0],
+                  firstName: item[1],
+                  lastName: item[2],
+                  age: item[3],
+                  country: item[4],
+                  gender: item[5],
+                };
+              });
+              users.shift();
+              setFilteredUsers(users);
+              alert('addedCount');
+            }
+          }}>
+          {({ getRootProps }: any) => (
+            <div>
+              <button type="button" {...getRootProps()}>
+                Import Contacts
+              </button>
+            </div>
+          )}
+        </CSVReader>
       </div>
     </div>
   );
