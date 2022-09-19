@@ -8,6 +8,7 @@ import { UserInfo } from '../../types/UserInfo';
 import styles from './ListContainer.module.scss';
 import { Filter } from '../../components/Filter/Filter';
 import { FilterFormTypes } from '../../types/FilterFormTypes';
+import { headers } from '../../listContainer.helpers';
 
 export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
   const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
@@ -38,33 +39,6 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
         ?.filter((item: UserInfo) => !data.gender || data.gender.includes(item.gender)) ?? [];
     setFilteredUsers(filtered);
   };
-
-  const headers = [
-    {
-      label: 'id',
-      key: 'id',
-    },
-    {
-      label: 'firstName',
-      key: 'firstName',
-    },
-    {
-      label: 'lastName',
-      key: 'lastName',
-    },
-    {
-      label: 'Age',
-      key: 'age',
-    },
-    {
-      label: 'country',
-      key: 'country',
-    },
-    {
-      label: 'gender',
-      key: 'gender',
-    },
-  ];
 
   const csvLink = {
     filename: 'contacts.csv',
