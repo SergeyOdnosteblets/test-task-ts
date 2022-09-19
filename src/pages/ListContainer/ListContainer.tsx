@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CSVLink } from 'react-csv';
 import { List } from '../../components/List/List';
 import { UserModal } from '../../components/UserModal/UserModal';
 import { ListTypes } from '../../types/ListTypes';
@@ -7,6 +8,7 @@ import { UserInfo } from '../../types/UserInfo';
 import styles from './ListContainer.module.scss';
 import { Filter } from '../../components/Filter/Filter';
 import { FilterFormTypes } from '../../types/FilterFormTypes';
+import { headers } from '../../listContainer.helpers';
 
 export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
   const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
@@ -38,6 +40,12 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
     setFilteredUsers(filtered);
   };
 
+  const csvLink = {
+    filename: 'contacts.csv',
+    headers: headers,
+    data: firlteredUsers,
+  };
+
   return (
     <div className={styles.main} data-testid="all-user-id">
       <div className={styles.filter}></div>
@@ -56,6 +64,11 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
             userToEdit={userToEdit}
           />
         )}
+      </div>
+      <div>
+        <CSVLink {...csvLink}>
+          <button>Export contacts</button>
+        </CSVLink>
       </div>
     </div>
   );
