@@ -82,11 +82,9 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
             }
           }}>
           {({ getRootProps }: any) => (
-            <div>
-              <button type="button" {...getRootProps()}>
-                Import Contacts
-              </button>
-            </div>
+            <button type="button" {...getRootProps()}>
+              Import Contacts
+            </button>
           )}
         </CSVReader>
       </div>
