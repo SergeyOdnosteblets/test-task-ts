@@ -67,7 +67,7 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
   ];
 
   const csvLink = {
-    filename: 'file.csv',
+    filename: 'contacts.csv',
     headers: headers,
     data: firlteredUsers,
   };
