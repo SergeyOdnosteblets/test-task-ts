@@ -82,7 +82,7 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
             }
           }}>
           {({ getRootProps }: any) => (
-            <button type="button" {...getRootProps()}>
+            <button type="button" {...getRootProps()} className={styles.button}>
               Import Contacts
             </button>
           )}

@@ -28,3 +28,25 @@
   padding: 10px;
   margin-left: 5px;
 }
+
+.table {
+  border: 3px solid black;
+  width: 500px;
+  border-radius: 5px;
+}
+
+.table__body {
+  background: rgb(164, 91, 91);
+  text-align: center;
+  font-weight: bold;
+  color: white;
+
+  tr {
+    border: 2px solid black;
+  }
+
+  tr:hover {
+    cursor: pointer;
+    background: green;
+  }
+}
