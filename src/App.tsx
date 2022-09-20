@@ -87,7 +87,7 @@ export const App: React.FC = () => {
       country: 'United States',
     },
   ]);
-  const [sortUsers, setSortUsers] = useState<string | number>('');
+  const [sortedUsers, setSortedUsers] = useState<string | number>('');
   setupDAL();
 
   return (
@@ -100,8 +100,8 @@ export const App: React.FC = () => {
               <ListContainer
                 list={list}
                 setList={setList}
-                setSortUsers={setSortUsers}
-                sortUsers={sortUsers}
+                setSortedUsers={setSortedUsers}
+                sortedUsers={sortedUsers}
               />
             }
           />

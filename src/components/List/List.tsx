@@ -9,10 +9,10 @@ import styles from './List.module.scss';
 export const List: React.FC<UserListItemProps> = ({
   removeUser,
   handleEdit,
-  firlteredUsers,
+  filteredUsers,
   setFilteredUsers,
-  sortUsers,
-  setSortUsers,
+  sortedUsers,
+  setSortedUsers,
 }) => {
   const navigate = useNavigate();
   const handleClick = (userObj: UserInfo) => {
@@ -27,31 +27,31 @@ export const List: React.FC<UserListItemProps> = ({
     });
   };
 
-  const handleTableFilter = (id: string | number) => {
-    setSortUsers(id);
+  const addSortCategory = (category: string | number) => {
+    setSortedUsers(category);
   };
 
   useEffect(() => {
-    if (sortUsers) {
-      const sorted = [...firlteredUsers].sort((a, b) => (a[sortUsers] > b[sortUsers] ? 1 : -1));
+    if (sortedUsers) {
+      const sorted = [...filteredUsers].sort((a, b) => (a[sortedUsers] > b[sortedUsers] ? 1 : -1));
       setFilteredUsers(sorted);
     }
-  }, [sortUsers]);
+  }, [sortedUsers]);
 
   return (
     <table className={styles.table}>
       <thead>
         <tr>
-          <th onClick={() => handleTableFilter('firstName')}>Name</th>
-          <th onClick={() => handleTableFilter('lastName')}>LastName</th>
-          <th onClick={() => handleTableFilter('age')}>Age</th>
-          <th onClick={() => handleTableFilter('gender')}>Gender</th>
-          <th onClick={() => handleTableFilter('country')}>Country</th>
+          <th onClick={() => addSortCategory('firstName')}>Name</th>
+          <th onClick={() => addSortCategory('lastName')}>LastName</th>
+          <th onClick={() => addSortCategory('age')}>Age</th>
+          <th onClick={() => addSortCategory('gender')}>Gender</th>
+          <th onClick={() => addSortCategory('country')}>Country</th>
         </tr>
       </thead>
       <tbody className={styles.table__body}>
-        {firlteredUsers &&
-          firlteredUsers.map((item: UserInfo) => (
+        {filteredUsers &&
+          filteredUsers.map((item: UserInfo) => (
             <tr>
               <th key={item.id} onClick={() => handleClick(item)}>
                 {item.firstName}

@@ -9,10 +9,10 @@ import styles from './ListContainer.module.scss';
 import { Filter } from '../../components/Filter/Filter';
 import { FilterFormTypes } from '../../types/FilterFormTypes';
 
-export const ListContainer: React.FC<ListTypes> = ({ list, setList, sortUsers, setSortUsers }) => {
+export const ListContainer: React.FC<ListTypes> = ({ list, setList, sortedUsers, setSortedUsers }) => {
   const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
   const [isModalActive, setIsModalActive] = useState(false);
-  const [firlteredUsers, setFilteredUsers] = useState<UserInfo[]>(list);
+  const [filteredUsers, setFilteredUsers] = useState<UserInfo[]>(list);
 
   const { CSVReader } = useCSVReader();
 
@@ -52,10 +52,10 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList, sortUsers, s
         <List
           removeUser={removeUser}
           handleEdit={handleEdit}
-          firlteredUsers={firlteredUsers}
+          filteredUsers={filteredUsers}
           setFilteredUsers={setFilteredUsers}
-          sortUsers={sortUsers}
-          setSortUsers={setSortUsers}
+          sortedUsers={sortedUsers}
+          setSortedUsers={setSortedUsers}
         />
         {isModalActive && (
           <UserModal
@@ -71,7 +71,7 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList, sortUsers, s
         <CSVReader
           onUploadAccepted={(results: any) => {
             if (results.errors.length) {
-              alert('faildToAddCount');
+              alert('failedToAddCount');
             } else {
               const users = results.data.map((item: UserInfo[]) => {
                 return {
