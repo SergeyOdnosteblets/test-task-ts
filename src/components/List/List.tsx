@@ -33,9 +33,7 @@ export const List: React.FC<UserListItemProps> = ({
 
   useEffect(() => {
     if (sortUsers) {
-      const sorted = [...firlteredUsers].sort((a, b) =>
-        `${a}${sortUsers}` > `${b}${sortUsers}` ? 1 : -1,
-      );
+      const sorted = [...firlteredUsers].sort((a, b) => (a[sortUsers] > b[sortUsers] ? 1 : -1));
       setFilteredUsers(sorted);
     }
   }, [sortUsers]);

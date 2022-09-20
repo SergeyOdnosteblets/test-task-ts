@@ -6,6 +6,6 @@ export interface UserListItemProps {
     sortUsers: string | number
     setSortUsers: React.Dispatch<React.SetStateAction<string | number>>
     setFilteredUsers: React.Dispatch<React.SetStateAction<UserInfo[]>>
-    firlteredUsers: UserInfo[]
+    firlteredUsers: UserInfo[] | any
 }
 
