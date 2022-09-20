@@ -9,7 +9,7 @@ import styles from './ListContainer.module.scss';
 import { Filter } from '../../components/Filter/Filter';
 import { FilterFormTypes } from '../../types/FilterFormTypes';
 
-export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
+export const ListContainer: React.FC<ListTypes> = ({ list, setList, sortUsers, setSortUsers }) => {
   const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
   const [isModalActive, setIsModalActive] = useState(false);
   const [firlteredUsers, setFilteredUsers] = useState<UserInfo[]>(list);
@@ -49,7 +49,14 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
         <button className={styles.button} onClick={() => handleEdit()}>
           Add User
         </button>
-        <List removeUser={removeUser} handleEdit={handleEdit} firlteredUsers={firlteredUsers} />
+        <List
+          removeUser={removeUser}
+          handleEdit={handleEdit}
+          firlteredUsers={firlteredUsers}
+          setFilteredUsers={setFilteredUsers}
+          sortUsers={sortUsers}
+          setSortUsers={setSortUsers}
+        />
         {isModalActive && (
           <UserModal
             setIsModalActive={setIsModalActive}

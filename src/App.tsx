@@ -87,13 +87,24 @@ export const App: React.FC = () => {
       country: 'United States',
     },
   ]);
+  const [sortUsers, setSortUsers] = useState<string | number>('');
   setupDAL();
 
   return (
     <BrowserRouter>
       <div className="app" data-testid="app">
         <Routes>
-          <Route path="/" element={<ListContainer list={list} setList={setList} />} />
+          <Route
+            path="/"
+            element={
+              <ListContainer
+                list={list}
+                setList={setList}
+                setSortUsers={setSortUsers}
+                sortUsers={sortUsers}
+              />
+            }
+          />
           <Route path="/:id" element={<User />} />
         </Routes>
       </div>
