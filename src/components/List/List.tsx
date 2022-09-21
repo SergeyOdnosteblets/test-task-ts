@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { UserListItemProps } from '../../types/UserListItemProps';
@@ -9,8 +9,11 @@ import styles from './List.module.scss';
 export const List: React.FC<UserListItemProps> = ({
   removeUser,
   handleEdit,
-  firlteredUsers,
+  filteredUsers,
+  setFilteredUsers,
+  forceRefresh,
 }) => {
+  const [sortBy, setSortBy] = useState<string | number>('');
   const navigate = useNavigate();
   const handleClick = (userObj: UserInfo) => {
     navigate(`/${userObj.id}`, {
@@ -24,26 +27,52 @@ export const List: React.FC<UserListItemProps> = ({
     });
   };
 
-  return (
-    firlteredUsers &&
-    firlteredUsers.map((item: UserInfo) => {
-      return (
-        <div className={styles.main} key={item.id}>
-          <div className={styles.item}>
-            <div className={styles.user} onClick={() => handleClick(item)} data-testid="user-id">
-              {item.firstName}
-            </div>
-            <div className={styles.item__buttons}>
-              <button className={styles.button} onClick={() => removeUser(item)}>
-                Delete
-              </button>
-              <button className={styles.button} onClick={() => handleEdit(item)}>
-                Edit
-              </button>
-            </div>
-          </div>
-        </div>
+  const onSortingChange = (category: string | number) => {
+    setSortBy(category);
+  };
+
+  useEffect(() => {
+    if (sortBy) {
+      const sorted = [...filteredUsers].sort((a, b) =>
+        a[sortBy].toLowerCase() > b[sortBy].toLowerCase() ? 1 : -1,
       );
-    })
+      setFilteredUsers(sorted);
+    }
+  }, [sortBy, forceRefresh]);
+
+  return (
+    <table className={styles.table}>
+      <thead>
+        <tr>
+          <th onClick={() => onSortingChange('firstName')}>Name</th>
+          <th onClick={() => onSortingChange('lastName')}>LastName</th>
+          <th onClick={() => onSortingChange('age')}>Age</th>
+          <th onClick={() => onSortingChange('gender')}>Gender</th>
+          <th onClick={() => onSortingChange('country')}>Country</th>
+        </tr>
+      </thead>
+      <tbody className={styles.table__body}>
+        {filteredUsers &&
+          filteredUsers.map((item: UserInfo) => (
+            <tr key={item.id}>
+              <th onClick={() => handleClick(item)}>{item.firstName}</th>
+              <th>{item.lastName}</th>
+              <th>{item.age}</th>
+              <th>{item.gender}</th>
+              <th>{item.country}</th>
+              <th>
+                <div className={styles.item__buttons}>
+                  <button className={styles.button} onClick={() => removeUser(item)}>
+                    Delete
+                  </button>
+                  <button className={styles.button} onClick={() => handleEdit(item)}>
+                    Edit
+                  </button>
+                </div>
+              </th>
+            </tr>
+          ))}
+      </tbody>
+    </table>
   );
 };

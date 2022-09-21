@@ -8,9 +8,11 @@ import styles from './UserModal.module.scss';
 export const UserModal: React.FC<UserToEdit> = ({
   setIsModalActive,
   isModalActive,
-  list,
-  setList,
+  filteredUsers,
   userToEdit,
+  setFilteredUsers,
+  setForceRefresh,
+  forceRefresh,
 }) => {
   const {
     register,
@@ -24,16 +26,17 @@ export const UserModal: React.FC<UserToEdit> = ({
 
   const onSubmit = (data: UserInfo) => {
     if (data.id) {
-      let index = list.findIndex((item) => item.id === data.id);
-      list[index] = data;
+      let index = filteredUsers.findIndex((item) => item.id === data.id);
+      filteredUsers[index] = data;
 
-      setList(list);
+      setFilteredUsers(filteredUsers);
     } else {
       let newUser = { ...data, id: (Math.random() + 1).toString(36).substring(2) };
 
-      setList([...list, newUser]);
+      setFilteredUsers([...filteredUsers, newUser]);
     }
     setIsModalActive(!isModalActive);
+    setForceRefresh(!forceRefresh);
     reset();
   };
 

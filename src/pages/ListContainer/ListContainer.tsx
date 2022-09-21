@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState } from 'react';
+
 import { CSVLink } from 'react-csv';
+
 import { List } from '../../components/List/List';
 import { UserModal } from '../../components/UserModal/UserModal';
 import { ListTypes } from '../../types/ListTypes';
@@ -11,18 +13,22 @@ import { Filter } from '../../components/Filter/Filter';
 import { FilterFormTypes } from '../../types/FilterFormTypes';
 import { headers } from '../../listContainer.helpers';
 
-export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
+export const ListContainer: React.FC<ListTypes> = ({
+  list,
+  filteredUsers,
+  setFilteredUsers,
+}) => {
   const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
   const [isModalActive, setIsModalActive] = useState(false);
-  const [firlteredUsers, setFilteredUsers] = useState<UserInfo[]>(list);
+  const [forceRefresh, setForceRefresh] = useState(true);
 
   const { CSVReader } = useCSVReader();
 
   const removeUser = (userObj: UserInfo) => {
-    let newList = [...list];
-    newList.splice(list.indexOf(userObj), 1);
+    let newList = [...filteredUsers];
+    newList.splice(filteredUsers.indexOf(userObj), 1);
 
-    setList(newList);
+    setFilteredUsers(newList);
   };
 
   const handleEdit = (userObj?: UserInfo) => {
@@ -46,7 +52,7 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
   const csvLink = {
     filename: 'contacts.csv',
     headers: headers,
-    data: firlteredUsers,
+    data: filteredUsers,
   };
 
   return (
@@ -57,14 +63,22 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
         <button className={styles.button} onClick={() => handleEdit()}>
           Add User
         </button>
-        <List removeUser={removeUser} handleEdit={handleEdit} firlteredUsers={firlteredUsers} />
+        <List
+          removeUser={removeUser}
+          handleEdit={handleEdit}
+          filteredUsers={filteredUsers}
+          setFilteredUsers={setFilteredUsers}
+          forceRefresh={forceRefresh}
+        />
         {isModalActive && (
           <UserModal
             setIsModalActive={setIsModalActive}
             isModalActive={isModalActive}
-            list={list}
-            setList={setList}
+            filteredUsers={filteredUsers}
             userToEdit={userToEdit}
+            setFilteredUsers={setFilteredUsers}
+            setForceRefresh={setForceRefresh}
+            forceRefresh={forceRefresh}
           />
         )}
       </div>
@@ -72,7 +86,7 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
         <CSVReader
           onUploadAccepted={(results: any) => {
             if (results.errors.length) {
-              alert('faildToAddCount');
+              alert('failedToAddCount');
             } else {
               const users = results.data.map((item: UserInfo[]) => {
                 return {
@@ -90,7 +104,7 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList }) => {
             }
           }}>
           {({ getRootProps }: any) => (
-            <button type="button" {...getRootProps()}>
+            <button type="button" {...getRootProps()} className={styles.button}>
               Import Contacts
             </button>
           )}

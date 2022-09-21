@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ListContainer } from './pages/ListContainer/ListContainer';
 import { User } from './pages/User/User';
 import { setupDAL } from './setupDAL';
+import { UserInfo } from './types/UserInfo';
 
 export const App: React.FC = () => {
   const [list, setList] = useState([
@@ -87,13 +88,23 @@ export const App: React.FC = () => {
       country: 'United States',
     },
   ]);
+  const [filteredUsers, setFilteredUsers] = useState<UserInfo[]>(list);
   setupDAL();
 
   return (
     <BrowserRouter>
       <div className="app" data-testid="app">
         <Routes>
-          <Route path="/" element={<ListContainer list={list} setList={setList} />} />
+          <Route
+            path="/"
+            element={
+              <ListContainer
+                list={list}
+                setFilteredUsers={setFilteredUsers}
+                filteredUsers={filteredUsers}
+              />
+            }
+          />
           <Route path="/:id" element={<User />} />
         </Routes>
       </div>

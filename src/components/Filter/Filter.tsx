@@ -6,7 +6,7 @@ import styles from './Filter.module.scss';
 import { FilterFormTypes } from '../../types/FilterFormTypes';
 import { FilterTypes } from '../../types/FilterTypes';
 
-export const Filter: React.FC<FilterTypes> = ({setFilteredUsers, onSubmit }) => {
+export const Filter: React.FC<FilterTypes> = ({ setFilteredUsers, onSubmit }) => {
   const { register, handleSubmit, reset } = useForm<FilterFormTypes>({
     mode: 'onBlur',
     defaultValues: {},
