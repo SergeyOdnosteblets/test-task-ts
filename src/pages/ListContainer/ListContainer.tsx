@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState } from 'react';
+
+import { CSVLink } from 'react-csv';
+
 import { List } from '../../components/List/List';
 import { UserModal } from '../../components/UserModal/UserModal';
 import { ListTypes } from '../../types/ListTypes';
@@ -8,6 +11,7 @@ import { useCSVReader } from 'react-papaparse';
 import styles from './ListContainer.module.scss';
 import { Filter } from '../../components/Filter/Filter';
 import { FilterFormTypes } from '../../types/FilterFormTypes';
+import { headers } from '../../listContainer.helpers';
 
 export const ListContainer: React.FC<ListTypes> = ({
   list,
@@ -43,6 +47,12 @@ export const ListContainer: React.FC<ListTypes> = ({
         ?.filter((item: UserInfo) => !data.ageTo || item.age <= data.ageTo)
         ?.filter((item: UserInfo) => !data.gender || data.gender.includes(item.gender)) ?? [];
     setFilteredUsers(filtered);
+  };
+
+  const csvLink = {
+    filename: 'contacts.csv',
+    headers: headers,
+    data: filteredUsers,
   };
 
   return (
@@ -99,6 +109,9 @@ export const ListContainer: React.FC<ListTypes> = ({
             </button>
           )}
         </CSVReader>
+        <CSVLink {...csvLink}>
+          <button>Export contacts</button>
+        </CSVLink>
       </div>
     </div>
   );
