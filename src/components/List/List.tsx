@@ -38,7 +38,6 @@ export const List: React.FC<UserListItemProps> = ({
         a[sortCategory].toLowerCase() > b[sortCategory].toLowerCase() ? 1 : -1,
       );
       setFilteredUsers(sorted);
-      console.log('rerender');
     }
   }, [sortCategory, forceRefresh]);
 
