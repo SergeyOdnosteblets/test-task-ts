@@ -2,7 +2,7 @@ import { UserInfo } from "./UserInfo";
 
 export interface UserModalTypes {
     isModalActive: boolean;
-    setIsModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsModalActive: (value: boolean) => void
     list: UserInfo[];
     setList: (list: UserInfo[]) => void ; 
 }

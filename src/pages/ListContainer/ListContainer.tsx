@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import { List } from '../../components/List/List';
 import { UserModal } from '../../components/UserModal/UserModal';
 import { ListTypes } from '../../types/ListTypes';
@@ -11,15 +11,12 @@ import { FilterFormTypes } from '../../types/FilterFormTypes';
 
 export const ListContainer: React.FC<ListTypes> = ({
   list,
-  sortCategory,
-  setSortCategory,
   filteredUsers,
   setFilteredUsers,
-  forceRefresh,
-  setForceRefresh,
 }) => {
   const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
   const [isModalActive, setIsModalActive] = useState(false);
+  const [forceRefresh, setForceRefresh] = useState(true);
 
   const { CSVReader } = useCSVReader();
 
@@ -61,8 +58,6 @@ export const ListContainer: React.FC<ListTypes> = ({
           handleEdit={handleEdit}
           filteredUsers={filteredUsers}
           setFilteredUsers={setFilteredUsers}
-          sortCategory={sortCategory}
-          setSortCategory={setSortCategory}
           forceRefresh={forceRefresh}
         />
         {isModalActive && (

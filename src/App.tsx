@@ -88,9 +88,7 @@ export const App: React.FC = () => {
       country: 'United States',
     },
   ]);
-  const [sortCategory, setSortCategory] = useState<string | number>('');
   const [filteredUsers, setFilteredUsers] = useState<UserInfo[]>(list);
-  const [forceRefresh, setForceRefresh] = useState(true);
   setupDAL();
 
   return (
@@ -102,12 +100,8 @@ export const App: React.FC = () => {
             element={
               <ListContainer
                 list={list}
-                setSortCategory={setSortCategory}
-                sortCategory={sortCategory}
                 setFilteredUsers={setFilteredUsers}
                 filteredUsers={filteredUsers}
-                setForceRefresh={setForceRefresh}
-                forceRefresh={forceRefresh}
               />
             }
           />

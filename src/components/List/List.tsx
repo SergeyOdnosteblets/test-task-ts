@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { UserListItemProps } from '../../types/UserListItemProps';
@@ -11,10 +11,9 @@ export const List: React.FC<UserListItemProps> = ({
   handleEdit,
   filteredUsers,
   setFilteredUsers,
-  sortCategory,
-  setSortCategory,
   forceRefresh,
 }) => {
+  const [sortBy, setSortBy] = useState<string | number>('');
   const navigate = useNavigate();
   const handleClick = (userObj: UserInfo) => {
     navigate(`/${userObj.id}`, {
@@ -28,28 +27,28 @@ export const List: React.FC<UserListItemProps> = ({
     });
   };
 
-  const sortBy = (category: string | number) => {
-    setSortCategory(category);
+  const onSortingChange = (category: string | number) => {
+    setSortBy(category);
   };
 
   useEffect(() => {
-    if (sortCategory) {
+    if (sortBy) {
       const sorted = [...filteredUsers].sort((a, b) =>
-        a[sortCategory].toLowerCase() > b[sortCategory].toLowerCase() ? 1 : -1,
+        a[sortBy].toLowerCase() > b[sortBy].toLowerCase() ? 1 : -1,
       );
       setFilteredUsers(sorted);
     }
-  }, [sortCategory, forceRefresh]);
+  }, [sortBy, forceRefresh]);
 
   return (
     <table className={styles.table}>
       <thead>
         <tr>
-          <th onClick={() => sortBy('firstName')}>Name</th>
-          <th onClick={() => sortBy('lastName')}>LastName</th>
-          <th onClick={() => sortBy('age')}>Age</th>
-          <th onClick={() => sortBy('gender')}>Gender</th>
-          <th onClick={() => sortBy('country')}>Country</th>
+          <th onClick={() => onSortingChange('firstName')}>Name</th>
+          <th onClick={() => onSortingChange('lastName')}>LastName</th>
+          <th onClick={() => onSortingChange('age')}>Age</th>
+          <th onClick={() => onSortingChange('gender')}>Gender</th>
+          <th onClick={() => onSortingChange('country')}>Country</th>
         </tr>
       </thead>
       <tbody className={styles.table__body}>
