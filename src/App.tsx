@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ListContainer } from './pages/ListContainer/ListContainer';
 import { User } from './pages/User/User';
 import { setupDAL } from './setupDAL';
+import { UserInfo } from './types/UserInfo';
 
 export const App: React.FC = () => {
   const [list, setList] = useState([
@@ -87,7 +88,9 @@ export const App: React.FC = () => {
       country: 'United States',
     },
   ]);
-  const [sortedUsers, setSortedUsers] = useState<string | number>('');
+  const [sortCategory, setSortCategory] = useState<string | number>('');
+  const [filteredUsers, setFilteredUsers] = useState<UserInfo[]>(list);
+  const [forceRefresh, setForceRefresh] = useState(true);
   setupDAL();
 
   return (
@@ -99,9 +102,12 @@ export const App: React.FC = () => {
             element={
               <ListContainer
                 list={list}
-                setList={setList}
-                setSortedUsers={setSortedUsers}
-                sortedUsers={sortedUsers}
+                setSortCategory={setSortCategory}
+                sortCategory={sortCategory}
+                setFilteredUsers={setFilteredUsers}
+                filteredUsers={filteredUsers}
+                setForceRefresh={setForceRefresh}
+                forceRefresh={forceRefresh}
               />
             }
           />

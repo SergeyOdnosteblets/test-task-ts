@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState } from 'react';
 import { List } from '../../components/List/List';
 import { UserModal } from '../../components/UserModal/UserModal';
 import { ListTypes } from '../../types/ListTypes';
@@ -9,18 +9,25 @@ import styles from './ListContainer.module.scss';
 import { Filter } from '../../components/Filter/Filter';
 import { FilterFormTypes } from '../../types/FilterFormTypes';
 
-export const ListContainer: React.FC<ListTypes> = ({ list, setList, sortedUsers, setSortedUsers }) => {
+export const ListContainer: React.FC<ListTypes> = ({
+  list,
+  sortCategory,
+  setSortCategory,
+  filteredUsers,
+  setFilteredUsers,
+  forceRefresh,
+  setForceRefresh,
+}) => {
   const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
   const [isModalActive, setIsModalActive] = useState(false);
-  const [filteredUsers, setFilteredUsers] = useState<UserInfo[]>(list);
 
   const { CSVReader } = useCSVReader();
 
   const removeUser = (userObj: UserInfo) => {
-    let newList = [...list];
-    newList.splice(list.indexOf(userObj), 1);
+    let newList = [...filteredUsers];
+    newList.splice(filteredUsers.indexOf(userObj), 1);
 
-    setList(newList);
+    setFilteredUsers(newList);
   };
 
   const handleEdit = (userObj?: UserInfo) => {
@@ -54,16 +61,19 @@ export const ListContainer: React.FC<ListTypes> = ({ list, setList, sortedUsers,
           handleEdit={handleEdit}
           filteredUsers={filteredUsers}
           setFilteredUsers={setFilteredUsers}
-          sortedUsers={sortedUsers}
-          setSortedUsers={setSortedUsers}
+          sortCategory={sortCategory}
+          setSortCategory={setSortCategory}
+          forceRefresh={forceRefresh}
         />
         {isModalActive && (
           <UserModal
             setIsModalActive={setIsModalActive}
             isModalActive={isModalActive}
-            list={list}
-            setList={setList}
+            filteredUsers={filteredUsers}
             userToEdit={userToEdit}
+            setFilteredUsers={setFilteredUsers}
+            setForceRefresh={setForceRefresh}
+            forceRefresh={forceRefresh}
           />
         )}
       </div>

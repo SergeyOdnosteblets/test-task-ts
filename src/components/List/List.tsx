@@ -11,8 +11,9 @@ export const List: React.FC<UserListItemProps> = ({
   handleEdit,
   filteredUsers,
   setFilteredUsers,
-  sortedUsers,
-  setSortedUsers,
+  sortCategory,
+  setSortCategory,
+  forceRefresh,
 }) => {
   const navigate = useNavigate();
   const handleClick = (userObj: UserInfo) => {
@@ -27,47 +28,50 @@ export const List: React.FC<UserListItemProps> = ({
     });
   };
 
-  const addSortCategory = (category: string | number) => {
-    setSortedUsers(category);
+  const sortBy = (category: string | number) => {
+    setSortCategory(category);
   };
 
   useEffect(() => {
-    if (sortedUsers) {
-      const sorted = [...filteredUsers].sort((a, b) => (a[sortedUsers] > b[sortedUsers] ? 1 : -1));
+    if (sortCategory) {
+      const sorted = [...filteredUsers].sort((a, b) =>
+        a[sortCategory].toLowerCase() > b[sortCategory].toLowerCase() ? 1 : -1,
+      );
       setFilteredUsers(sorted);
+      console.log('rerender');
     }
-  }, [sortedUsers]);
+  }, [sortCategory, forceRefresh]);
 
   return (
     <table className={styles.table}>
       <thead>
         <tr>
-          <th onClick={() => addSortCategory('firstName')}>Name</th>
-          <th onClick={() => addSortCategory('lastName')}>LastName</th>
-          <th onClick={() => addSortCategory('age')}>Age</th>
-          <th onClick={() => addSortCategory('gender')}>Gender</th>
-          <th onClick={() => addSortCategory('country')}>Country</th>
+          <th onClick={() => sortBy('firstName')}>Name</th>
+          <th onClick={() => sortBy('lastName')}>LastName</th>
+          <th onClick={() => sortBy('age')}>Age</th>
+          <th onClick={() => sortBy('gender')}>Gender</th>
+          <th onClick={() => sortBy('country')}>Country</th>
         </tr>
       </thead>
       <tbody className={styles.table__body}>
         {filteredUsers &&
           filteredUsers.map((item: UserInfo) => (
-            <tr>
-              <th key={item.id} onClick={() => handleClick(item)}>
-                {item.firstName}
-              </th>
+            <tr key={item.id}>
+              <th onClick={() => handleClick(item)}>{item.firstName}</th>
               <th>{item.lastName}</th>
               <th>{item.age}</th>
               <th>{item.gender}</th>
               <th>{item.country}</th>
-              <div className={styles.item__buttons}>
-                <button className={styles.button} onClick={() => removeUser(item)}>
-                  Delete
-                </button>
-                <button className={styles.button} onClick={() => handleEdit(item)}>
-                  Edit
-                </button>
-              </div>
+              <th>
+                <div className={styles.item__buttons}>
+                  <button className={styles.button} onClick={() => removeUser(item)}>
+                    Delete
+                  </button>
+                  <button className={styles.button} onClick={() => handleEdit(item)}>
+                    Edit
+                  </button>
+                </div>
+              </th>
             </tr>
           ))}
       </tbody>
