@@ -20,7 +20,7 @@ export const Filter: React.FC<FilterTypes> = ({ setFilteredUsers, onSubmit }) =>
   return (
     <div>
       <div className={styles.form} onClick={(e) => e.stopPropagation()}>
-        <form onSubmit={handleSubmit(onSubmit)} >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <input
             className={styles.form__input}
             {...register('firstName')}
