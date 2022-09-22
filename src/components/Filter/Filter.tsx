@@ -21,49 +21,53 @@ export const Filter: React.FC<FilterTypes> = ({ setFilteredUsers, onSubmit }) =>
     <div>
       <div className={styles.form} onClick={(e) => e.stopPropagation()}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            className={styles.form__input}
-            {...register('firstName')}
-            placeholder="First name"
-          />
-          <input
-            className={styles.form__input}
-            type="number"
-            {...register('ageFrom', {
-              min: 0,
-              max: 100,
-            })}
-            placeholder="Age From"
-          />
-          <input
-            className={styles.form__input}
-            type="number"
-            {...register('ageTo', {
-              min: 0,
-              max: 100,
-            })}
-            placeholder="Age To"
-          />
-
-          <label>
-            <input type="checkbox" {...register('gender')} value="Male" />
-            Male
-          </label>
-          <label>
-            <input type="checkbox" value="Female" {...register('gender')} />
-            Female
-          </label>
-          <label>
-            <input type="checkbox" value="Non-binary" {...register('gender')} />
-            Non-binary
-          </label>
-
-          <button type="submit" className={styles.form__button}>
-            Save
-          </button>
-          <button type="submit" className={styles.form__button} onClick={handleReset}>
-            Reset
-          </button>
+          <p>Filters:</p>
+          <div className={styles.form__inputs}>
+            <input {...register('firstName')} placeholder="First name" className={styles.input} />
+            <input
+              className={styles.input}
+              type="number"
+              {...register('ageFrom', {
+                min: 0,
+                max: 100,
+              })}
+              placeholder="Age From"
+            />
+            <input
+              className={styles.input}
+              type="number"
+              {...register('ageTo', {
+                min: 0,
+                max: 100,
+              })}
+              placeholder="Age To"
+            />
+          </div>
+          <p>Gender:</p>
+          <div className={styles.gender__and__buttons}>
+            <div className={styles.gender}>
+              <label>
+                <input type="checkbox" {...register('gender')} value="Male" />
+                Male
+              </label>
+              <label>
+                <input type="checkbox" value="Female" {...register('gender')} />
+                Female
+              </label>
+              <label>
+                <input type="checkbox" value="Non-binary" {...register('gender')} />
+                Non-binary
+              </label>
+            </div>
+            <div>
+              <button type="submit" className={styles.button}>
+                Save
+              </button>
+              <button type="submit" className={styles.button} onClick={handleReset}>
+                Reset
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
