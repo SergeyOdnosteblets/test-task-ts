@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 
 import { CSVLink } from 'react-csv';
 
@@ -13,11 +13,7 @@ import { Filter } from '../../components/Filter/Filter';
 import { FilterFormTypes } from '../../types/FilterFormTypes';
 import { headers } from '../../listContainer.helpers';
 
-export const ListContainer: React.FC<ListTypes> = ({
-  list,
-  filteredUsers,
-  setFilteredUsers,
-}) => {
+export const ListContainer: React.FC<ListTypes> = ({ list, filteredUsers, setFilteredUsers }) => {
   const [userToEdit, setUserToEdit] = useState<UserInfo | null>(null);
   const [isModalActive, setIsModalActive] = useState(false);
   const [forceRefresh, setForceRefresh] = useState(true);
@@ -57,10 +53,43 @@ export const ListContainer: React.FC<ListTypes> = ({
 
   return (
     <div className={styles.main} data-testid="all-user-id">
-      <div className={styles.filter}></div>
+      <div className={styles.import__export}>
+        <div className={styles.title}>User List</div>
+        <div>
+          <CSVReader
+            onUploadAccepted={(results: any) => {
+              if (results.errors.length) {
+                alert('failedToAddCount');
+              } else {
+                const users = results.data.map((item: UserInfo[]) => {
+                  return {
+                    id: item[0],
+                    firstName: item[1],
+                    lastName: item[2],
+                    age: item[3],
+                    country: item[4],
+                    gender: item[5],
+                  };
+                });
+                users.shift();
+                setFilteredUsers(users);
+                alert('addedCount');
+              }
+            }}>
+            {({ getRootProps }: any) => (
+              <button type="button" {...getRootProps()} className={styles.button}>
+                Import Contacts
+              </button>
+            )}
+          </CSVReader>
+          <CSVLink {...csvLink}>
+            <button className={styles.button}>Export contacts</button>
+          </CSVLink>
+        </div>
+      </div>
       <Filter setFilteredUsers={setFilteredUsers} onSubmit={onSubmit} />
       <div className={styles.list}>
-        <button className={styles.button} onClick={() => handleEdit()}>
+        <button className={styles.add__user} onClick={() => handleEdit()}>
           Add User
         </button>
         <List
@@ -70,49 +99,18 @@ export const ListContainer: React.FC<ListTypes> = ({
           setFilteredUsers={setFilteredUsers}
           forceRefresh={forceRefresh}
         />
-        {isModalActive && (
-          <UserModal
-            setIsModalActive={setIsModalActive}
-            isModalActive={isModalActive}
-            filteredUsers={filteredUsers}
-            userToEdit={userToEdit}
-            setFilteredUsers={setFilteredUsers}
-            setForceRefresh={setForceRefresh}
-            forceRefresh={forceRefresh}
-          />
-        )}
       </div>
-      <div>
-        <CSVReader
-          onUploadAccepted={(results: any) => {
-            if (results.errors.length) {
-              alert('failedToAddCount');
-            } else {
-              const users = results.data.map((item: UserInfo[]) => {
-                return {
-                  id: item[0],
-                  firstName: item[1],
-                  lastName: item[2],
-                  age: item[3],
-                  country: item[4],
-                  gender: item[5],
-                };
-              });
-              users.shift();
-              setFilteredUsers(users);
-              alert('addedCount');
-            }
-          }}>
-          {({ getRootProps }: any) => (
-            <button type="button" {...getRootProps()} className={styles.button}>
-              Import Contacts
-            </button>
-          )}
-        </CSVReader>
-        <CSVLink {...csvLink}>
-          <button>Export contacts</button>
-        </CSVLink>
-      </div>
+      {isModalActive && (
+        <UserModal
+          setIsModalActive={setIsModalActive}
+          isModalActive={isModalActive}
+          filteredUsers={filteredUsers}
+          userToEdit={userToEdit}
+          setFilteredUsers={setFilteredUsers}
+          setForceRefresh={setForceRefresh}
+          forceRefresh={forceRefresh}
+        />
+      )}
     </div>
   );
 };

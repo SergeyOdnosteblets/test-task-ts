@@ -1,21 +1,52 @@
 .main {
   margin: 0 auto;
   display: flex;
-  flex-direction: row-reverse;
-  width: 1200px;
+  flex-direction: column;
+  width: 900px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(48, 23, 23, 0.5);
+}
+
+.import__export {
+  display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 4px solid red;
+  padding: 10px;
+
+  .title {
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+  }
+}
+
+.button {
+  margin: 0 5px;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+    background: black;
+    color: white;
+  }
 }
 
 .list {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  width: 200px;
-  align-items: center;
+  justify-content: center;
+  width: 100%;
+  align-items: flex-end;
 }
 
-.button {
-  width: 100%;
+.add__user {
+  margin-right: 20px;
   margin-bottom: 20px;
-  padding: 10px 0;
+  padding: 5px;
+  border: 2px solid black;
 }
