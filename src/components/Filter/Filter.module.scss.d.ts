@@ -8,4 +8,5 @@ export const form__error: string;
 export const input: string;
 export const gender__and__buttons: string;
 export const button: string
+export const gender: string
 

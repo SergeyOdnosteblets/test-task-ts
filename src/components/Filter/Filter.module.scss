@@ -19,8 +19,8 @@
 }
 
 .form {
-  padding-left: 10px;
-  width: 600px;
+  padding: 10px;
+  max-width: 600px;
   .form__inputs {
     .input {
       padding: 5px;
@@ -46,5 +46,15 @@
         color: white;
       }
     }
+
+    @media (max-width: 576px) {
+      .gender {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+  p {
+    font-weight: bold;
   }
 }

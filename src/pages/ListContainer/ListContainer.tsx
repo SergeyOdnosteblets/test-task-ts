@@ -53,7 +53,7 @@ export const ListContainer: React.FC<ListTypes> = ({ list, filteredUsers, setFil
 
   return (
     <div className={styles.main} data-testid="all-user-id">
-      <div className={styles.import__export}>
+      <div className={styles.buttons_import__export}>
         <div className={styles.title}>User List</div>
         <div>
           <CSVReader

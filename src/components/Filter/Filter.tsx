@@ -43,9 +43,9 @@ export const Filter: React.FC<FilterTypes> = ({ setFilteredUsers, onSubmit }) =>
               placeholder="Age To"
             />
           </div>
-
+          <p>Gender:</p>
           <div className={styles.gender__and__buttons}>
-            <div>
+            <div className={styles.gender}>
               <label>
                 <input type="checkbox" {...register('gender')} value="Male" />
                 Male
@@ -59,7 +59,6 @@ export const Filter: React.FC<FilterTypes> = ({ setFilteredUsers, onSubmit }) =>
                 Non-binary
               </label>
             </div>
-
             <div>
               <button type="submit" className={styles.button}>
                 Save

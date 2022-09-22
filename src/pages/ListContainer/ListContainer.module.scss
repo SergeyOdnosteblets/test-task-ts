@@ -2,12 +2,12 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  width: 900px;
+  max-width: 900px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(48, 23, 23, 0.5);
 }
 
-.import__export {
+.buttons_import__export {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -33,6 +33,10 @@
     background: black;
     color: white;
   }
+
+  @media (max-width: 576px) {
+    font-size: 12px;
+  }
 }
 
 .list {
@@ -45,8 +49,7 @@
 }
 
 .add__user {
-  margin-right: 20px;
-  margin-bottom: 20px;
+  margin: 20px 20px 20px 0;
   padding: 5px;
   border: 2px solid black;
 }
